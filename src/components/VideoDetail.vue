@@ -39,7 +39,7 @@
 
                     </div>
 
-                    <div class="video-progress">
+                    <div class="video-progress" @touchstart="startDrag" ref="progressBar">
                         <div class="video-progress-cur" :style="`width:${curTime / totalTime * 100}%`"></div>
                     </div>
 
@@ -82,6 +82,7 @@ const {popPara, isOpenDetail} = toRefs(useHooks.state)
 let videoData = ref([1, 1, 1])
 let initSlide = ref(0)
 let aIndex = ref(0)
+const swiperLock = ref(false)
 
 let videoRef = ref(null)
 let playRef = ref(null)
@@ -154,6 +155,39 @@ watch(() => aIndex.value, (newVal, oldVal) => {
 
 const goBack = () => {
     emit(`goBack`)
+}
+
+let progressBar = ref(null)
+let progress = ref(0)
+let isDragging = ref(false)
+
+// 拖拽视频进度条
+function startDrag(event) {
+    isDragging.value = true
+    updateProgressBar(event)
+    document.addEventListener('touchmove', onDrag);
+    document.addEventListener('touchend', stopDrag);
+}
+
+function onDrag(event) {
+    if (isDragging.value) {
+        updateProgressBar(event);
+    }
+}
+
+function stopDrag(event) {
+    isDragging.value = false
+    document.removeEventListener('touchmove', onDrag);
+    document.removeEventListener('touchend', stopDrag);
+}
+
+function updateProgressBar(event) {
+    const rect = progressBar.value[aIndex.value].getBoundingClientRect();
+    const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+    const offsetX = clientX - rect.left;
+    const newProgress = Math.max(0, Math.min(100, (offsetX / rect.width) * 100));
+    progress.value = newProgress;
+    videoRef.value[aIndex.value].currentTime = (newProgress / 100) * totalTime.value;
 }
 </script>
 
@@ -295,7 +329,7 @@ const goBack = () => {
             left: 0.7rem;
             right: 0.7rem;
             width: 94%;
-            height: 1px;
+            height: 8px;
             background-color: rgba(255, 255, 255, 0.5);
 
             .video-progress-cur {

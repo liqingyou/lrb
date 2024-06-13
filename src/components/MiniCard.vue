@@ -10,7 +10,7 @@
         </div>
         <div class="card-title">
             {{ props.info.title ? props.info.title : '' }}
-            {{ props.info.content ? props.info.content.replaceAll('<br>', '') : '' }}
+            {{ props.info.content ? props.info.content : '' }}
         </div>
         <div class="card-bottom">
             <div class="card-b-left">
@@ -115,6 +115,7 @@ watch(() => isOpenDetail.value, (newVal, oldVal) => {
             max-height: 16rem;
             object-fit: cover;
             object-position: center;
+            filter: blur(5px); /* 调整模糊度 */
         }
     }
 

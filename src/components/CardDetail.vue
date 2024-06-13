@@ -178,7 +178,7 @@ defineExpose({
     width: 100%;
     background-color: rgba(254, 254, 254, 1);
     overflow: hidden;
-    transition: all 1s linear;
+    transition: all 0.5s linear;
 
     .card-head {
         width: calc(100% - 2rem);
