@@ -29,7 +29,8 @@ let skip = ref(0)
 // 获取内容
 async function fetchContent() {
     try {
-        const {data} = await axios.get(`https://api.bameiapp.com/dy/video/list?size=10&skip=${skip.value}`)
+        // const {data} = await axios.get(`https://api.bameiapp.com/dy/video/list?size=10&skip=${skip.value}`)
+        const {data} = await axios.get(`https://m3test.2loveyou.com/dy/video/list?size=10&skip=${skip.value}`)
         resList.value = data.data.list
         skip.value = skip.value + data.data.list.length
     } catch (error) {
