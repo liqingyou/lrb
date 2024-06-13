@@ -195,7 +195,7 @@ function updateProgressBar(event) {
 .card-detail {
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.8);
     overflow: hidden;
     transition: all 0.3s linear;
 
@@ -233,7 +233,9 @@ function updateProgressBar(event) {
         }
 
         .video-source {
-            width: 100%;
+            width: 100%;      /* 视频宽度设置为100% */
+            height: auto;     /* 视频高度自动调整，保持宽高比 */
+            max-height: calc(100vh);
         }
 
         .video-controls {

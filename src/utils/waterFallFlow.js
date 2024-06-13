@@ -1,9 +1,10 @@
-const computeWaterFallFlow = (ref, columns = 2) => {
+const computeWaterFallFlow = (ref, columns = 2, exploreCards) => {
 
     let resizeListener = null;
 
     const computeCard = () => {
         const cards = ref.children;
+
         const winWidth = window.innerWidth; // 当前视域宽度
         const margin = Math.round(winWidth * 0.015); // 计算card之间的间距
         const cardWidth = Math.floor((winWidth - (columns + 1) * margin) / columns); // 计算卡片宽度
@@ -25,11 +26,23 @@ const computeWaterFallFlow = (ref, columns = 2) => {
             let left = margin * (minColumn + 1) + cardWidth * minColumn;
             let top = min + margin;
             cards[i].style.transform = `translate(${left}px, ${top}px)`;
-            topList[minColumn] += cards[i].clientHeight + margin;
+            // topList[minColumn] += cards[i].clientHeight + margin;
+
+            let rate = exploreCards[i].imgH / exploreCards[i].imgW;
+            let cardHeight = rate * cardWidth;
+            // console.log(cardHeight, cards[i].clientHeight, cards[i].clientHeight - cardHeight)
+            let px = remToPx(4.5)
+            console.log(px)
+            topList[minColumn] += cardHeight + remToPx(4.3) + margin;
         }
 
         ref.style.height = Math.max(...topList) + margin + "px";
     };
+
+    function remToPx(rem) {
+        const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize); // 获取根元素字体大小
+        return rem * rootFontSize;
+    }
 
     computeCard();
 

@@ -6,7 +6,7 @@
                     <polygon class="card-tri" stroke-linejoin="round" points="0,0 0,200 170,100"></polygon>
                 </svg>
             </div>
-            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source" @load="emits('onImgLoaded')" />
+            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source" @load="emits('onImgLoaded')"  alt=""/>
         </div>
         <div class="card-title">
             {{ props.info.title ? props.info.title : '' }}
@@ -14,7 +14,7 @@
         </div>
         <div class="card-bottom">
             <div class="card-b-left">
-                <img :src="props.info.avatar" class="card-head" />
+                <img :src="props.info.avatar" class="card-head"  alt=""/>
                 <div class="card-name">{{ props.info.author }}</div>
             </div>
             <div class="card-b-right">
@@ -79,6 +79,7 @@ watch(() => isOpenDetail.value, (newVal, oldVal) => {
     width: 50vw;
     height: auto;
     background-color: #fefefe;
+    border: 1px solid #e0e0e0;
     border-radius: 0.5rem;
     box-shadow: 0 .125rem .3125rem rgba(181, 181, 191, 0.1);
     overflow: hidden;
@@ -111,11 +112,11 @@ watch(() => isOpenDetail.value, (newVal, oldVal) => {
 
         .card-source {
             width: 100%;
-            min-height: 9rem;
-            max-height: 16rem;
-            object-fit: cover;
-            object-position: center;
-            filter: blur(5px); /* 调整模糊度 */
+            //min-height: 9rem;
+            //max-height: 16rem;
+            //object-fit: cover;
+            //object-position: center;
+            //filter: blur(5px); /* 调整模糊度 */
         }
     }
 

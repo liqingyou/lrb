@@ -110,7 +110,7 @@ onMounted(() => {
 
     .my-swiper {
         height: 100vh;
-        background-color: rgb(249, 249, 249);
+        background-color: #f5f5f5;
 
         .slide-content {
             @include flexcc;

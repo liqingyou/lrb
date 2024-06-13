@@ -58,9 +58,9 @@ const exploreRef = ref(null)
 let imgCount = 0
 const addImgCount = () => {
     imgCount++
-    if (imgCount >= 0) {
+    if (imgCount >= imgLen) {
         // 开始计算瀑布流
-        computeWaterFallFlow(exploreRef.value)
+        computeWaterFallFlow(exploreRef.value, 2, exploreCards)
     }
 }
 
@@ -86,6 +86,7 @@ const exploreRefresh = async () => {
     refreshRef.value.style.transition = 'all 0.3s linear'
     imgCount = 0
     await initData()
+    computeWaterFallFlow(exploreRef.value, 2, exploreCards)
     // 关闭面饭
     refreshRef.value.style.height = '0px'
     setTimeout(() => {
