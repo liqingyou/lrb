@@ -23,7 +23,7 @@ const menus = routes;
 const path = ref('/')
 
 const toPath = (p) => {
-    if (path.value == p && p === '/') {
+    if (path.value === p && p === '/') {
         changeRefresh(true)
     }
     router.push({ path: p })
