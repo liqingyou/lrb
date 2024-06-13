@@ -31,7 +31,7 @@ onMounted(() => {
         // console.log("scroll compare", Math.ceil(scrollTop + clientHeight), scrollHeight);
 
         if (Math.ceil(scrollTop + clientHeight) >= scrollHeight && !isBottomLoading.value) {
-            if (nowScrollHeight != scrollHeight) {
+            if (nowScrollHeight !== scrollHeight) {
                 nowScrollHeight = scrollHeight
                 isBottomLoading.value = true
                 emit('searchMore', () => {

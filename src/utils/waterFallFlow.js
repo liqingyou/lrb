@@ -31,8 +31,6 @@ const computeWaterFallFlow = (ref, columns = 2, exploreCards) => {
             let rate = exploreCards[i].imgH / exploreCards[i].imgW;
             let cardHeight = rate * cardWidth;
             // console.log(cardHeight, cards[i].clientHeight, cards[i].clientHeight - cardHeight)
-            let px = remToPx(4.5)
-            console.log(px)
             topList[minColumn] += cardHeight + remToPx(4.3) + margin;
         }
 

@@ -58,7 +58,7 @@ const exploreRef = ref(null)
 let imgCount = 0
 const addImgCount = () => {
     imgCount++
-    if (imgCount >= imgLen) {
+    if (imgCount === imgLen) {
         // 开始计算瀑布流
         computeWaterFallFlow(exploreRef.value, 2, exploreCards)
     }
@@ -75,6 +75,7 @@ const searchMore = async (callback) => {
     // 简单写法
     // exploreCards.push(...res)
     imgLen = exploreCards.length
+    computeWaterFallFlow(exploreRef.value, 2, exploreCards)
     callback ? callback() : ''
 }
 

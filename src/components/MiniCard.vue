@@ -6,7 +6,7 @@
                     <polygon class="card-tri" stroke-linejoin="round" points="0,0 0,200 170,100"></polygon>
                 </svg>
             </div>
-            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source" @load="emits('onImgLoaded')"  alt=""/>
+            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source hidden" @load="imageLoadOk" alt=""/>
         </div>
         <div class="card-title">
             {{ props.info.title ? props.info.title : '' }}
@@ -14,7 +14,7 @@
         </div>
         <div class="card-bottom">
             <div class="card-b-left">
-                <img :src="props.info.avatar" class="card-head"  alt=""/>
+                <img :src="props.info.avatar" class="card-head" alt=""/>
                 <div class="card-name">{{ props.info.author }}</div>
             </div>
             <div class="card-b-right">
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted, nextTick, watch } from 'vue'
+import {ref, toRefs, watch} from 'vue'
 import useHooks from '@/hooks/useHooks';
 // import { exploreCardsMock } from '../mock/homeData'
 // let info = reactive({})
@@ -36,11 +36,20 @@ import useHooks from '@/hooks/useHooks';
 const props = defineProps(['info'])
 const emits = defineEmits(['onImgLoaded'])
 
-const { popPara, isOpenDetail } = toRefs(useHooks.state)
-const { changeOpenStatus } = useHooks
+const {popPara, isOpenDetail} = toRefs(useHooks.state)
+const {changeOpenStatus} = useHooks
 
 const contentTab = ref(null)
 const contentImg = ref(null)
+
+function imageLoadOk() {
+    contentImg.value.classList.remove('hidden')
+    contentImg.value.classList.add('visible')
+    setTimeout(function () {
+        contentImg.value.classList.add("fade-in");
+    }, 50);
+    emits('onImgLoaded')
+}
 
 function handleClick() {
     // handleClick(_this)
@@ -75,6 +84,41 @@ watch(() => isOpenDetail.value, (newVal, oldVal) => {
 </script>
 
 <style lang="scss" scoped>
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-spinner {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    position: re;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+img.hidden {
+    opacity: 0;
+}
+
+img.visible {
+    transition: opacity 1s ease-in-out;
+}
+
+img.fade-in {
+    opacity: 1;
+}
+
 .card-content {
     width: 50vw;
     height: auto;
