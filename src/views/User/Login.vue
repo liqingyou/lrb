@@ -1,24 +1,24 @@
 <template>
     <div class="login-container">
-        <form class="my-form">
+        <div class="my-form">
             <div class="login-welcome-row">
                 <a href="#" title="Logo">
                     <img src="../../assets/image/logo.svg" alt="Logo" class="logo">
                 </a>
-                <!--                <h1>Login</h1>-->
+                <h2>登录</h2>
                 <!--                <p>请输入信息! &#x1F44F;</p>-->
             </div>
             <div class="input__wrapper">
                 <input v-model="email"
-                    type="email" id="email" name="email" class="input__field"
-                    placeholder="Your Email" required autocomplete="off">
+                       type="email" id="email" name="email" class="input__field"
+                       placeholder="Your Email" required autocomplete="off">
                 <label for="email" class="input__label">账号:</label>
                 <!-- svg email -->
             </div>
             <div class="input__wrapper">
                 <input v-model="password" id="password" type="password" class="input__field" placeholder="Your Password"
                        title="Minimum 6 characters at least 1 Alphabet and 1 Number"
-                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required autocomplete="off">
+                       required autocomplete="off">
                 <label for="password" class="input__label">
                     密码
                 </label>
@@ -37,36 +37,67 @@
             <div class="my-form__actions">
                 <div class="my-form__row">
                     <span>你还没有账号?</span>
-                    <a href="#" title="Create Account">
+                    <a title="Create Account" @click="goSignUp">
                         点击注册
                     </a>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </template>
 
 <script setup>
 import {ref} from 'vue'
+import router from "@/router/index.js";
+import axios from "axios";
+import {CONFIG} from "@/utils/global.js";
+import useHooks from "@/hooks/useHooks.js";
+
+const {changeRefresh} = useHooks
+
 let email = ref('')
 let password = ref('')
-function loginAction() {
-    console.log("login", email.value, password.value)
+
+async function loginAction() {
+    console.log("signupAction", email.value, password.value)
+    const data = {
+        "email": email.value,
+        "password": password.value
+    }
+    try {
+        const result = await axios.post(`${CONFIG.base}/dy/people/login`, data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (result.data.success) {
+            let token = result.data.result
+            localStorage.setItem('adv_token', token);
+            await router.push({"path": "/"})
+            changeRefresh(true)
+        } else {
+            alert("请求错误")
+        }
+    } catch (error) {
+        alert("服务器错误,联系管理员")
+    }
+}
+
+function goSignUp() {
+    router.push({path: "/signup"})
 }
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-    height: 100%;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+.login-container {
+    position: fixed;
+    z-index: 999;
     font-size: 16px;
     font-family: 'Work Sans', sans-serif;
     height: 100vh;

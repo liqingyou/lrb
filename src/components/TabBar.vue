@@ -7,7 +7,6 @@
             <div @click="toPath(item.path)" v-else class="tab-name" :class="{ active: item.path === path }">
                 {{ item.name }}
             </div>
-
         </template>
     </div>
 </template>

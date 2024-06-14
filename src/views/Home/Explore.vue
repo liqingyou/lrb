@@ -17,6 +17,8 @@ import MiniCard from '../../components/MiniCard.vue'
 import computeWaterFallFlow from '../../utils/waterFallFlow'
 import useHooks from '../../hooks/useHooks'
 import axios from 'axios'
+import {CONFIG} from "@/utils/global.js";
+import router from "@/router/index.js";
 
 const {isRefresh} = toRefs(useHooks.state)
 const {changeRefresh} = useHooks
@@ -29,10 +31,28 @@ let skip = ref(0)
 // 获取内容
 async function fetchContent() {
     try {
-        // const {data} = await axios.get(`https://api.bameiapp.com/dy/video/list?size=10&skip=${skip.value}`)
-        const {data} = await axios.get(`https://m3test.2loveyou.com/dy/video/list?size=10&skip=${skip.value}`)
-        resList.value = data.data.list
-        skip.value = skip.value + data.data.list.length
+        let token = localStorage.getItem("adv_token");
+        console.log(token)
+        if (token != null && token !== '') {
+            const result = await axios.get(`${CONFIG.base}/dy/video/list?size=10&skip=${skip.value}`, {
+                headers: {
+                    'Authorization': token,
+                }
+            })
+            console.log(result)
+            if (result.data.code === 200) {
+                resList.value = result.data.result.list
+                skip.value = skip.value + result.data.result.list.length
+            } else {
+                if (result.data.code === 401) {
+                    await router.push({"path": "/login"})
+                } else if (result.data.code === 500) {
+                    alert(result.data.message)
+                }
+            }
+        } else {
+            await router.push({"path": "/login"})
+        }
     } catch (error) {
         console.error('Error fetching profile content:', error)
     }

@@ -1,12 +1,12 @@
 <template>
     <div class="login-container">
-        <form class="my-form">
+        <div class="my-form">
             <div class="login-welcome-row">
                 <a href="#" title="Logo">
                     <img src="../../assets/image/logo.svg" alt="Logo" class="logo">
                 </a>
-                <!--                <h1>Login</h1>-->
-                <!--                <p>请输入信息! &#x1F44F;</p>-->
+                <h2>注册</h2>
+                <p>请输入信息!</p>
             </div>
             <div class="input__wrapper">
                 <input v-model="email"
@@ -18,9 +18,19 @@
             <div class="input__wrapper">
                 <input v-model="password" id="password" type="password" class="input__field" placeholder="Your Password"
                        title="Minimum 6 characters at least 1 Alphabet and 1 Number"
-                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" required autocomplete="off">
+                       required autocomplete="off">
                 <label for="password" class="input__label">
                     密码
+                </label>
+                <!-- svg password -->
+            </div>
+            <div class="input__wrapper">
+                <input v-model="password2" id="password2" type="password" class="input__field"
+                       placeholder="Your Password Again"
+                       title="Minimum 6 characters at least 1 Alphabet and 1 Number"
+                       required autocomplete="off">
+                <label for="password2" class="input__label">
+                    再次输入密码
                 </label>
                 <!-- svg password -->
             </div>
@@ -42,19 +52,46 @@
                     </a>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </template>
 
 <script setup>
 import {ref} from 'vue'
 import router from "@/router/index.js";
+import axios from 'axios'
+import {CONFIG} from "@/utils/global.js";
 
 let email = ref('')
 let password = ref('')
+let password2 = ref('')
 
-function signupAction() {
-    console.log("login", email.value, password.value)
+async function signupAction() {
+    console.log("signupAction", email.value, password.value)
+    if (password.value !== password2.value) {
+        alert("两次密码不一致")
+    } else {
+        const data = {
+            "email": email.value,
+            "password": password.value
+        }
+        try {
+            const result = await axios.post(`${CONFIG.base}/dy/people/register`, data, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (result.data.success) {
+                let token = result.data.result
+                localStorage.setItem('adv_token', token);
+                await router.push({"path": "/"})
+            } else {
+                alert("请求错误")
+            }
+        } catch (error) {
+            alert("服务器错误,联系管理员")
+        }
+    }
 }
 
 function goLogin() {
@@ -63,17 +100,14 @@ function goLogin() {
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-    height: 100%;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+.login-container {
+    position: fixed;
     font-size: 16px;
     font-family: 'Work Sans', sans-serif;
     height: 100vh;
