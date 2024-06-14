@@ -177,6 +177,7 @@ function onDrag(event) {
 
 function stopDrag(event) {
     isDragging.value = false
+    updateProgressBar(event);
     document.removeEventListener('touchmove', onDrag);
     document.removeEventListener('touchend', stopDrag);
 }
@@ -195,7 +196,7 @@ function updateProgressBar(event) {
 .card-detail {
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 1);
     overflow: hidden;
     transition: all 0.3s linear;
 
@@ -207,8 +208,10 @@ function updateProgressBar(event) {
     }
 
     .card-head {
+        position: absolute;
+        z-index: 900;
         width: calc(100% - 2rem);
-        height: 4.5rem;
+        height: 3rem;
         overflow: hidden;
         padding: 0 1rem;
         @include flexlr;
@@ -222,7 +225,7 @@ function updateProgressBar(event) {
     .card-content {
         position: relative;
         width: 100%;
-        height: calc(100% - 9rem);
+        height: calc(100% - 3.1rem);
         @include flexcc;
 
         .video-content {
@@ -235,7 +238,7 @@ function updateProgressBar(event) {
         .video-source {
             width: 100%;      /* 视频宽度设置为100% */
             height: auto;     /* 视频高度自动调整，保持宽高比 */
-            max-height: calc(100vh);
+            max-height: calc(100%);
         }
 
         .video-controls {
@@ -331,7 +334,7 @@ function updateProgressBar(event) {
             left: 0.7rem;
             right: 0.7rem;
             width: 94%;
-            height: 8px;
+            height: 2px;
             background-color: rgba(255, 255, 255, 0.5);
 
             .video-progress-cur {
@@ -346,7 +349,7 @@ function updateProgressBar(event) {
 
     .card-bottom {
         width: calc(100% - 2rem);
-        height: 4.5rem;
+        height: 3.1rem;
         overflow: hidden;
         padding: 0 1rem;
         @include flexlr;

@@ -47,7 +47,7 @@
             <div class="my-form__actions">
                 <div class="my-form__row">
                     <span>已有账号?</span>
-                    <a href="#" title="Go Login" @click="goLogin">
+                    <a title="Go Login" @click="goLogin">
                         点击登录
                     </a>
                 </div>
