@@ -26,15 +26,19 @@ const {changeRefresh} = useHooks
 let exploreCards = reactive([])
 let imgLen // 记录总图片数
 let resList = ref([])
-let skip = ref(0)
+let skip = ref('0')
+let pageSize = 10
 
 // 获取内容
 async function fetchContent() {
     try {
         let token = localStorage.getItem("adv_token");
-        console.log(token)
         if (token != null && token !== '') {
-            const result = await axios.get(`${CONFIG.base}/dy/video/list?size=10&skip=${skip.value}`, {
+            let skipLocal = localStorage.getItem("adv_explore_skip")
+            if (null != skipLocal) {
+                skip.value = skipLocal
+            }
+            const result = await axios.get(`${CONFIG.base}/dy/video/list?size=${pageSize}&skip=${skip.value}`, {
                 headers: {
                     'Authorization': token,
                 }
@@ -42,7 +46,15 @@ async function fetchContent() {
             console.log(result)
             if (result.data.code === 200) {
                 resList.value = result.data.result.list
-                skip.value = skip.value + result.data.result.list.length
+                let rLength = result.data.result.list.length
+                if (rLength < pageSize) {
+                    // 清除缓存
+                    skip.value = "0"
+                    localStorage.removeItem("adv_explore_skip")
+                } else {
+                    skip.value = parseInt(skip.value) + rLength + ""
+                    localStorage.setItem("adv_explore_skip", skip.value)
+                }
             } else {
                 if (result.data.code === 401) {
                     await router.push({"path": "/login"})
