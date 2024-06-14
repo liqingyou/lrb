@@ -108,6 +108,7 @@ function goLogin() {
 
 .login-container {
     position: fixed;
+    z-index: 999;
     font-size: 16px;
     font-family: 'Work Sans', sans-serif;
     height: 100vh;
