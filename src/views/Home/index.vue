@@ -2,7 +2,7 @@
     <div class="home-container">
         <div class="home-swiper-head">
             <i class="iconfont">
-                <img src="@/assets/font/more.svg" alt="more.svg" style="height: 1.1rem">
+                <img src="@/assets/font/more.svg" alt="more.svg" style="height: 1.1rem;">
             </i>
             <div class="swiper-name" ref="moduleRef">
                 <span v-for="(item, idx) in moduleList" @click="changeSwiper(idx)"

@@ -38,8 +38,7 @@ async function fetchContent() {
             if (null != skipLocal) {
                 skip.value = skipLocal
             }
-            skip.value = 100
-            const result = await axios.get(`${CONFIG.base}/dy/video/list?size=${pageSize}&skip=${skip.value}`, {
+            const result = await axios.get(`${CONFIG.base}/dy/source/list?size=${pageSize}&skip=${skip.value}`, {
                 headers: {
                     'Authorization': token,
                 }
@@ -68,6 +67,7 @@ async function fetchContent() {
         }
     } catch (error) {
         console.error('Error fetching profile content:', error)
+        alert("服务器错误")
     }
 }
 
