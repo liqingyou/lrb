@@ -2,7 +2,9 @@
     <div class="tab-bar">
         <template v-for="(item, index) in menus" :key="item.path">
             <div @click="toPath(item.path)" v-if="item.path === '/publish'" class="tab-pub">
-                <i class="iconfont icon-jia"></i>
+                <i class="iconfont">
+                    <img src="@/assets/font/ten.svg" alt="ten.svg" style="height: 1.3rem">
+                </i>
             </div>
             <div @click="toPath(item.path)" v-else class="tab-name" :class="{ active: item.path === path }">
                 {{ item.name }}
@@ -60,7 +62,7 @@ watch(() => router.currentRoute.value.path, () => {
     }
 
     .tab-pub {
-        width: 3.125rem;
+        width: 3rem;
         height: 70%;
         border-radius: 20%;
         background-color: rgb(255, 35, 66);
