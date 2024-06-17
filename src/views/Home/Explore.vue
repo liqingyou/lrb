@@ -38,6 +38,7 @@ async function fetchContent() {
             if (null != skipLocal) {
                 skip.value = skipLocal
             }
+            skip.value = 100
             const result = await axios.get(`${CONFIG.base}/dy/video/list?size=${pageSize}&skip=${skip.value}`, {
                 headers: {
                     'Authorization': token,

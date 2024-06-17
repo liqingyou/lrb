@@ -2,19 +2,25 @@
     <div class="card-detail">
         <swiper class="my-swiper" @swiper="onSwiper" :direction="'vertical'"
                 @slideChange="onSlideChange" :initialSlide="initSlide" :class="{ 'swiper-no-swiping': swiperLock }">
-            <swiper-slide v-for="(item, index) in videoData" :key="index">
+            <swiper-slide v-for="(item, index) in popPara.info.videoUrl" :key="index">
 
                 <div class="card-head">
-                    <i class="iconfont icon-sousuo" @click="goBack()"></i>
-                    <i class="iconfont icon-sousuo"></i>
+                    <i class="iconfont" @click="goBack()">
+                        <img src="@/assets/font/back-white.svg" alt="back.svg" style="height: 1.5rem">
+                    </i>
+                    <i class="iconfont">
+                        <img src="@/assets/font/share-white.svg" alt="share-white.svg" style="height: 1.5rem">
+                    </i>
                 </div>
 
                 <div class="card-content">
 
                     <div class="video-content" ref="videoContentRef">
-                        <video ref="videoRef" class="video-source" :src="popPara.info.videoUrl[0]"></video>
+                        <video ref="videoRef" class="video-source" :src="item"></video>
                         <div class="video-controls" ref="playRef">
-                            <i class="iconfont icon-aixin1"></i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/play.svg" alt="play.svg" style="height: 3.5rem">
+                            </i>
                         </div>
                     </div>
 
@@ -33,7 +39,9 @@
                                 </div>
                             </div>
                             <div class="video-info-icon">
-                                <i class="iconfont icon-aixin1"></i>
+                                <i class="iconfont">
+                                    <img src="@/assets/font/kuo-white.svg" alt="kuo-white.svg" style="height: 0.9rem">
+                                </i>
                             </div>
                         </div>
 
@@ -52,15 +60,21 @@
                     </div>
                     <div class="card-san-lia">
                         <div>
-                            <i class="iconfont icon-aixin1"></i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/heart-white.svg" alt="heart.svg" style="height: 1.49rem">
+                            </i>
                             <p>77</p>
                         </div>
                         <div>
-                            <i class="iconfont icon-shoucang1"></i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/star-white.svg" alt="star.svg" style="height: 1.4rem">
+                            </i>
                             <p>88</p>
                         </div>
                         <div>
-                            <i class="iconfont icon-pinglun"></i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/comment-white.svg" alt="comment.svg" style="height: 1.5rem">
+                            </i>
                             <p>99</p>
                         </div>
                     </div>
@@ -79,7 +93,7 @@ import useHooks from '@/hooks/useHooks';
 
 const emit = defineEmits(['goBack'])
 const {popPara, isOpenDetail} = toRefs(useHooks.state)
-let videoData = ref([1, 1, 1])
+let videoData = ref([1])
 let initSlide = ref(0)
 let aIndex = ref(0)
 const swiperLock = ref(false)
@@ -236,8 +250,8 @@ function updateProgressBar(event) {
         }
 
         .video-source {
-            width: 100%;      /* 视频宽度设置为100% */
-            height: auto;     /* 视频高度自动调整，保持宽高比 */
+            width: 100%; /* 视频宽度设置为100% */
+            height: auto; /* 视频高度自动调整，保持宽高比 */
             max-height: calc(100%);
         }
 

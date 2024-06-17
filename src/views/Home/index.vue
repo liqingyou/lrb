@@ -1,7 +1,9 @@
 <template>
     <div class="home-container">
         <div class="home-swiper-head">
-            <i class="iconfont icon-tiantianquan"></i>
+            <i class="iconfont">
+                <img src="@/assets/font/more.svg" alt="more.svg" style="height: 1.1rem">
+            </i>
             <div class="swiper-name" ref="moduleRef">
                 <span v-for="(item, idx) in moduleList" @click="changeSwiper(idx)"
                     :class="{ active: idx === moduleIdx }">{{ item }}</span>
@@ -9,7 +11,9 @@
                     <div></div>
                 </div>
             </div>
-            <i class="iconfont icon-sousuo"></i>
+            <i class="iconfont">
+                <img src="@/assets/font/search.svg" alt="search.svg" style="height: 1.1rem">
+            </i>
         </div>
         <swiper @swiper="onSwiper" @slideChange="onSlideChange" @progress="onProgress" :initialSlide="moduleIdx"
             class="my-swiper">
@@ -132,6 +136,7 @@ onMounted(() => {
         .iconfont {
             font-size: 1.2rem;
             color: rgb(51, 51, 51);
+            @include flexcc;
         }
 
         .iconfont:nth-child(1) {

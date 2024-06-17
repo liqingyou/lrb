@@ -2,31 +2,36 @@
     <div class="card-detail">
         <div class="card-head">
             <div class="card-head-left">
-                <i class="iconfont icon-sousuo" @click="goBack()"></i>
-                <img class="card-head-v" :src="popPara.info.avatar" />
+                <i class="iconfont" @click="goBack()">
+                    <img src="@/assets/font/back.svg" alt="back.svg" style="height: 1.5rem">
+                </i>
+                <img class="card-head-v" :src="popPara.info.avatar" alt="avatar"/>
                 <div class="card-name">{{ popPara.info.author }}</div>
             </div>
             <div class="card-head-right">
                 <div class="card-btn-follow">关注</div>
-                <i class="iconfont icon-sousuo"></i>
+                <i class="iconfont">
+                    <img src="@/assets/font/share.svg" alt="share.svg" style="height: 1.5rem">
+                </i>
             </div>
         </div>
 
         <div class="card-content" ref="cardContentRef">
             <div class="card-swiper" ref="cardSwiperRef">
                 <swiper v-if="popPara.info.imageUrl.length > 1 && isOpenDetail" class="img-swiper" @swiper="onSwiper"
-                    @slideChange="onSlideChange" :initialSlide="initSlide" :class="{ 'swiper-no-swiping' : swiperLock }">
+                        @slideChange="onSlideChange" :initialSlide="initSlide"
+                        :class="{ 'swiper-no-swiping' : swiperLock }">
                     <swiper-slide v-for="(item, index) in popPara.info.imageUrl" :key="index">
                         <div class="card-source" :style="{ 'background-image': 'url(' + item + ')' }"></div>
                     </swiper-slide>
                 </swiper>
                 <div v-else class="card-source"
-                    :style="{ 'background-image': 'url(' + popPara.info.imageUrl[0] + ')' }"></div>
+                     :style="{ 'background-image': 'url(' + popPara.info.imageUrl[0] + ')' }"></div>
             </div>
 
             <div class="img-swiper-pagination" v-if="popPara.info.imageUrl.length > 1">
                 <div v-for="(item, index) in popPara.info.imageUrl" :key="index"
-                    :class="{ 'img-swiper-pagination-active': aIndex == index }">
+                     :class="{ 'img-swiper-pagination-active': aIndex === index }">
                 </div>
             </div>
 
@@ -42,19 +47,25 @@
                 <div class="comment-sum">共67条评论</div>
 
                 <div class="card-center-input">
-                    <img class="card-center-input-head" :src="popPara.info.avatar" />
+                    <img class="card-center-input-head" :src="popPara.info.avatar" alt="avatar"/>
                     <div class="card-center-input-right">
                         <p>留下你的想法吧</p>
                         <div class="card-center-input-i">
-                            <i class="iconfont icon-sousuo"></i>
-                            <i class="iconfont icon-sousuo"></i>
-                            <i class="iconfont icon-sousuo"></i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/at.svg" alt="at.svg" style="height: 1rem">
+                            </i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/head.svg" alt="head.svg" style="height: 1rem">
+                            </i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/picture.svg" alt="picture.svg" style="height: 1rem">
+                            </i>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-comments" v-for="i in 10">
-                    <img class="card-comments-head-1" :src="popPara.info.avatar" />
+                    <img class="card-comments-head-1" :src="popPara.info.avatar"/>
                     <div>
                         <div class="card-comments-content">
                             <div class="card-comments-name">{{ popPara.info.author }}</div>
@@ -63,7 +74,9 @@
                             </div>
                         </div>
                         <div class="card-comments-like">
-                            <i class="iconfont icon-aixin1"></i>
+                            <i class="iconfont">
+                                <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1rem">
+                            </i>
                             <div>123</div>
                         </div>
                     </div>
@@ -78,20 +91,28 @@
 
         <div class="card-bottom" ref="cardBottomRef">
             <div class="card-say-sth">
-                <i class="iconfont icon-aixin1"></i>
+                <i class="iconfont">
+                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">
+                </i>
                 <p>说点什么...</p>
             </div>
             <div class="card-san-lia">
                 <div>
-                    <i class="iconfont icon-aixin1"></i>
+                    <i class="iconfont">
+                        <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1.49rem">
+                    </i>
                     <p>{{ popPara.info.likeCount }}</p>
                 </div>
                 <div>
-                    <i class="iconfont icon-shoucang1"></i>
+                    <i class="iconfont">
+                        <img src="@/assets/font/star.svg" alt="star.svg" style="height: 1.4rem">
+                    </i>
                     <p>88</p>
                 </div>
                 <div>
-                    <i class="iconfont icon-pinglun"></i>
+                    <i class="iconfont">
+                        <img src="@/assets/font/comment.svg" alt="comment.svg" style="height: 1.5rem">
+                    </i>
                     <p>99</p>
                 </div>
             </div>
@@ -101,14 +122,15 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
+import {onMounted, ref, toRefs} from 'vue'
+import {Swiper, SwiperSlide} from 'swiper/vue'
 import 'swiper/css'
 import useHooks from '../hooks/useHooks';
-const { popPara, isOpenDetail } = toRefs(useHooks.state)
+
+const {popPara, isOpenDetail} = toRefs(useHooks.state)
 const emit = defineEmits(['goBack'])
 
-const swiperLock = ref(false); 
+const swiperLock = ref(false);
 const cardContentRef = ref(null)
 const cardBottomRef = ref(null)
 const cardSwiperRef = ref(null)
@@ -119,7 +141,7 @@ const onSwiper = (swiper) => {
 }
 let initSlide = ref(0)
 let aIndex = ref(0)
-const onSlideChange = ({ activeIndex }) => {
+const onSlideChange = ({activeIndex}) => {
     aIndex.value = activeIndex
 }
 
@@ -200,7 +222,7 @@ defineExpose({
                 width: 1.875rem;
                 height: 1.875rem;
                 border-radius: 50%;
-                margin: 0 0.625rem 0 0;
+                margin: 0 0.525rem 0;
             }
 
             .card-name {
@@ -360,7 +382,7 @@ defineExpose({
                 align-items: flex-start;
                 justify-content: space-between;
 
-                >div {
+                > div {
                     border-bottom: 1px solid rgb(233, 233, 233);
                     padding: 0 0 1rem;
                     display: flex;
@@ -454,7 +476,7 @@ defineExpose({
             width: 50%;
             @include flexlr;
 
-            >div {
+            > div {
                 @include flexl;
 
                 i {

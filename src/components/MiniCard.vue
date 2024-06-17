@@ -18,7 +18,9 @@
                 <div class="card-name">{{ props.info.author }}</div>
             </div>
             <div class="card-b-right">
-                <i class="iconfont icon-aixin1 icon-card-small"></i>
+                <i class="iconfont icon-card-small">
+                    <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 0.8rem">
+                </i>
                 <p class="card-like" v-if="props.info.likeCount > 0">{{ props.info.likeCount }}</p>
                 <p class="card-like" v-else>赞</p>
             </div>
@@ -85,34 +87,12 @@ watch(() => isOpenDetail.value, (newVal, oldVal) => {
 
 <style lang="scss" scoped>
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.loading-spinner {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 2s linear infinite;
-    position: re;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 img.hidden {
     opacity: 0;
 }
 
 img.visible {
-    transition: opacity 1s ease-in-out;
+    transition: opacity 1.1s ease-in-out;
 }
 
 img.fade-in {
@@ -160,7 +140,7 @@ img.fade-in {
             //max-height: 16rem;
             //object-fit: cover;
             //object-position: center;
-            //filter: blur(5px); /* 调整模糊度 */
+            // filter: blur(20px); /* 调整模糊度 */
         }
     }
 
