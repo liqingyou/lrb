@@ -8,7 +8,7 @@
             </div>
             <!--            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source hidden" @load="imageLoadOk" alt=""/>-->
             <img ref="contentImg"
-                 :src="`https://via.placeholder.com/${(props.info.imgW/10).toFixed(0)}x${(props.info.imgH/10).toFixed(0)}&text=...`"
+                 :src="`https://via.placeholder.com/${(props.info.imgW/10).toFixed(0)}x${(props.info.imgH/10).toFixed(0)}&text= `"
                  class="card-source hidden" @load="imageLoadOk" :alt="props.info.imageUrl[0]"/>
         </div>
         <div class="card-title">
@@ -55,7 +55,7 @@ function imageLoadOk() {
         contentImg.value.classList.add('visible')
         setTimeout(function () {
             contentImg.value.classList.add("fade-in");
-        }, 30);
+        }, 50);
         emits('onImgLoaded')
         loaded.value = true
     }

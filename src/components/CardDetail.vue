@@ -17,7 +17,7 @@
         </div>
 
         <div class="card-content" ref="cardContentRef">
-            <div class="card-swiper" ref="cardSwiperRef">
+            <div class="card-swiper" ref="cardSwiperRef" pinch-zoom>
                 <swiper v-if="popPara.info.imageUrl.length > 1 && isOpenDetail" class="img-swiper" @swiper="onSwiper"
                         @slideChange="onSlideChange" :initialSlide="initSlide"
                         :class="{ 'swiper-no-swiping' : swiperLock }">
@@ -195,12 +195,18 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
+
+.zoomable-content {
+    touch-action: none; /* 禁用触摸事件的默认行为 */
+    transform-origin: center center; /* 设置缩放中心 */
+}
+
 .card-detail {
     height: 100%;
     width: 100%;
     background-color: rgba(254, 254, 254, 1);
     overflow: hidden;
-    transition: all 0.5s linear;
+    transition: all 0.3s linear;
 
     .card-head {
         width: calc(100% - 2rem);
@@ -257,6 +263,10 @@ defineExpose({
         overflow-y: auto;
 
         .card-swiper {
+
+            touch-action: none; /* 禁用触摸事件的默认行为 */
+            transform-origin: center center; /* 设置缩放中心 */
+
             position: relative;
             width: 100vw;
             height: 65%;
