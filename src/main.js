@@ -11,3 +11,13 @@ import {registerSW} from 'virtual:pwa-register'
 registerSW({immediate: true})
 
 createApp(App).use(router).use(VueZoomContainer).mount('#app')
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(registration => {
+            console.log('Service Worker registration successful with scope: ', registration.scope);
+        }).catch(err => {
+            console.error('Service Worker registration failed: ', err);
+        });
+    });
+}

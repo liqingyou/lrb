@@ -18,7 +18,7 @@
 
         <div class="card-content" ref="cardContentRef">
 
-            <vue-zoom-container maxScale="2">
+            <VueZoomContainer>
                 <div class="card-swiper" ref="cardSwiperRef" pinch-zoom>
                     <swiper v-if="popPara.info.imageUrl.length > 1 && isOpenDetail" class="img-swiper"
                             @swiper="onSwiper"
@@ -31,7 +31,7 @@
                     <div v-else class="card-source"
                          :style="{ 'background-image': 'url(' + popPara.info.imageUrl[0] + ')' }"></div>
                 </div>
-            </vue-zoom-container>
+            </VueZoomContainer>
 
             <div class="img-swiper-pagination" v-if="popPara.info.imageUrl.length > 1">
                 <div v-for="(item, index) in popPara.info.imageUrl" :key="index"

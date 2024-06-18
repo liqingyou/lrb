@@ -28,6 +28,9 @@
                 <div id="jin-du" v-show="loading">
                     Loading! 正在上传文件...
                 </div>
+                <div>
+                    <button @click="sendNotification">发送通知</button>
+                </div>
             </div>
         </div>
     </div>
@@ -55,11 +58,58 @@ onMounted(() => {
     })
     // 选中文件时
     uploadInputRef.value.addEventListener('change', function (e) {
-        console.log(e.target.files)
+        // console.log(e.target.files)
         // 图片显示
         uploadPicture(e.target.files)
     })
+
+    // 注册
+    // if ('serviceWorker' in navigator) {
+    //     navigator.serviceWorker.register('sw.js').then(registration => {
+    //         console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    //     }, err => {
+    //         console.log('ServiceWorker registration failed: ', err);
+    //     });
+    // }
 })
+
+const sendNotification = () => {
+    if (!('Notification' in window)) {
+        console.error('This browser does not support notifications.');
+        return;
+    }
+
+    if (Notification.permission === 'granted') {
+        showNotification();
+    } else if (Notification.permission !== 'denied') {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                showNotification();
+            }
+        });
+    } else {
+        console.log("333333")
+    }
+};
+
+const showNotification = async () => {
+    const options = {
+        body: '视频上传完毕,等待发布!',
+        icon: 'icons/android-chrome-192x192.png',
+        badge: 'icons/android-chrome-192x192.png',
+        actions: [
+            {action: 'explore', title: 'Explore this new world', icon: 'icons/android-chrome-192x192.png'}
+        ]
+    };
+
+    const registration = await navigator.serviceWorker.getRegistration();
+    if (registration) {
+        await registration.showNotification('Hello World!', options);
+    } else {
+        console.error('Service Worker registration not found');
+    }
+};
+
 
 function uploadPicture(files) {
     for (let index = 0; index < files.length; index++) {
@@ -71,7 +121,7 @@ function uploadPicture(files) {
         /**
          * 上传操作(接口) 可以写在这里
          */
-        uploadFile();
+        uploadFile(files[index]);
 
         //  创建 img 元素
         let newImg = document.createElement('img')
@@ -94,12 +144,12 @@ function uploadPicture(files) {
     }
 }
 
-async function uploadFile() {
+async function uploadFile(file) {
 
     loading.value = true;
 
-    let fileInput = document.getElementById('upload-input');
-    let file = fileInput.files[0];
+    // let fileInput = document.getElementById('upload-input');
+    // let file = fileInput.files[0];
     let fileType = file.type;
 
     if (fileType.startsWith('video/')) {
@@ -149,6 +199,8 @@ function extractVideoFrame(file) {
         let signVideo = await getSign(file);
         await uploadByApi(file, signVideo, true)
         console.log("视频上传完成")
+
+        sendNotification()
 
         loading.value = false;
 

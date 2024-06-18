@@ -112,7 +112,7 @@ img.fade-in {
     height: auto;
     background-color: #fefefe;
     // border: 1px solid #e0e0e0;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     box-shadow: 0 .125rem .3125rem rgba(181, 181, 191, 0.1);
     overflow: hidden;
     position: absolute;
