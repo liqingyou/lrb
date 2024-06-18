@@ -16,7 +16,9 @@
                 <div class="card-content">
 
                     <div class="video-content" ref="videoContentRef">
-                        <video ref="videoRef" class="video-source" :src="item"></video>
+                        <vue-zoom-container maxScale=2>
+                            <video ref="videoRef" class="video-source" :src="item"></video>
+                        </vue-zoom-container>
                         <div class="video-controls" ref="playRef">
                             <i class="iconfont">
                                 <img src="@/assets/font/play.svg" alt="play.svg" style="height: 3.5rem">

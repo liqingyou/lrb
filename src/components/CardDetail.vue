@@ -18,7 +18,7 @@
 
         <div class="card-content" ref="cardContentRef">
 
-            <vue-zoom-container>
+            <vue-zoom-container maxScale="2">
                 <div class="card-swiper" ref="cardSwiperRef" pinch-zoom>
                     <swiper v-if="popPara.info.imageUrl.length > 1 && isOpenDetail" class="img-swiper"
                             @swiper="onSwiper"
@@ -88,18 +88,18 @@
 
                 <div class="card-end">- THE END -</div>
 
-
             </div>
 
         </div>
 
         <div class="card-bottom" ref="cardBottomRef">
-            <div class="card-say-sth">
-                <i class="iconfont">
-                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">
-                </i>
-                <p>说点什么...</p>
-            </div>
+<!--            <div class="card-say-sth">-->
+<!--                <i class="iconfont">-->
+<!--                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">-->
+<!--                </i>-->
+<!--                <p>说点什么...</p>-->
+<!--            </div>-->
+            <textarea class="card-say-sth" placeholder="说点什么..."></textarea>
             <div class="card-san-lia">
                 <div>
                     <i class="iconfont">
@@ -120,6 +120,8 @@
                     <p>99</p>
                 </div>
             </div>
+
+
         </div>
 
     </div>

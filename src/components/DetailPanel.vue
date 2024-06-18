@@ -77,7 +77,7 @@ const goBack = () => {
 
     setTimeout(() => {
         changeOpenStatus(false)
-    }, 500)
+    }, 300)
 }
 
 let scaleRate = 1

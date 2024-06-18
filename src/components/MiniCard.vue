@@ -100,7 +100,7 @@ img.hidden {
 }
 
 img.visible {
-    transition: opacity 0.9s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
 }
 
 img.fade-in {

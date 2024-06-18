@@ -54,6 +54,10 @@ const computeWaterFallFlow = (ref, columns = 2, exploreCards) => {
     //     });
     // }
 
+    window.addEventListener("resize", () => {
+        computeCard();
+    });
+
 };
 
 export default computeWaterFallFlow
