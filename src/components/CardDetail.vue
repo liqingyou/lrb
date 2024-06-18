@@ -17,17 +17,21 @@
         </div>
 
         <div class="card-content" ref="cardContentRef">
-            <div class="card-swiper" ref="cardSwiperRef" pinch-zoom>
-                <swiper v-if="popPara.info.imageUrl.length > 1 && isOpenDetail" class="img-swiper" @swiper="onSwiper"
-                        @slideChange="onSlideChange" :initialSlide="initSlide"
-                        :class="{ 'swiper-no-swiping' : swiperLock }">
-                    <swiper-slide v-for="(item, index) in popPara.info.imageUrl" :key="index">
-                        <div class="card-source" :style="{ 'background-image': 'url(' + item + ')' }"></div>
-                    </swiper-slide>
-                </swiper>
-                <div v-else class="card-source"
-                     :style="{ 'background-image': 'url(' + popPara.info.imageUrl[0] + ')' }"></div>
-            </div>
+
+            <vue-zoom-container>
+                <div class="card-swiper" ref="cardSwiperRef" pinch-zoom>
+                    <swiper v-if="popPara.info.imageUrl.length > 1 && isOpenDetail" class="img-swiper"
+                            @swiper="onSwiper"
+                            @slideChange="onSlideChange" :initialSlide="initSlide"
+                            :class="{ 'swiper-no-swiping' : swiperLock }">
+                        <swiper-slide v-for="(item, index) in popPara.info.imageUrl" :key="index">
+                            <div class="card-source" :style="{ 'background-image': 'url(' + item + ')' }"></div>
+                        </swiper-slide>
+                    </swiper>
+                    <div v-else class="card-source"
+                         :style="{ 'background-image': 'url(' + popPara.info.imageUrl[0] + ')' }"></div>
+                </div>
+            </vue-zoom-container>
 
             <div class="img-swiper-pagination" v-if="popPara.info.imageUrl.length > 1">
                 <div v-for="(item, index) in popPara.info.imageUrl" :key="index"
