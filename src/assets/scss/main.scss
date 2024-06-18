@@ -8,6 +8,11 @@ body {
     display: none;
 }
 
+.iconfont {
+    img {
+        display: flex;
+    }
+}
 
 @keyframes rotate {
     0% {

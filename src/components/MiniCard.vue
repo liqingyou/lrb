@@ -6,7 +6,10 @@
                     <polygon class="card-tri" stroke-linejoin="round" points="0,0 0,200 170,100"></polygon>
                 </svg>
             </div>
-            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source hidden" @load="imageLoadOk" alt=""/>
+            <!--            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source hidden" @load="imageLoadOk" alt=""/>-->
+            <img ref="contentImg"
+                 :src="`https://via.placeholder.com/${(props.info.imgW/10).toFixed(0)}x${(props.info.imgH/10).toFixed(0)}&text=...`"
+                 class="card-source hidden" @load="imageLoadOk" :alt="props.info.imageUrl[0]"/>
         </div>
         <div class="card-title">
             {{ props.info.title ? props.info.title : '' }}
@@ -43,14 +46,19 @@ const {changeOpenStatus} = useHooks
 
 const contentTab = ref(null)
 const contentImg = ref(null)
+const loaded = ref(false)
 
 function imageLoadOk() {
-    contentImg.value.classList.remove('hidden')
-    contentImg.value.classList.add('visible')
-    setTimeout(function () {
-        contentImg.value.classList.add("fade-in");
-    }, 50);
-    emits('onImgLoaded')
+    if (!loaded.value) {
+        contentImg.value.src = contentImg.value.alt
+        contentImg.value.classList.remove('hidden')
+        contentImg.value.classList.add('visible')
+        setTimeout(function () {
+            contentImg.value.classList.add("fade-in");
+        }, 30);
+        emits('onImgLoaded')
+        loaded.value = true
+    }
 }
 
 function handleClick() {
@@ -92,7 +100,7 @@ img.hidden {
 }
 
 img.visible {
-    transition: opacity 1.1s ease-in-out;
+    transition: opacity 0.9s ease-in-out;
 }
 
 img.fade-in {

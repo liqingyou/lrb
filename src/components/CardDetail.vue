@@ -3,7 +3,7 @@
         <div class="card-head">
             <div class="card-head-left">
                 <i class="iconfont" @click="goBack()">
-                    <img src="@/assets/font/back.svg" alt="back.svg" style="height: 1.5rem;display: flex;">
+                    <img src="@/assets/font/back.svg" alt="back.svg" style="height: 1.5rem;">
                 </i>
                 <img class="card-head-v" :src="popPara.info.avatar" alt="avatar"/>
                 <div class="card-name">{{ popPara.info.author }}</div>
@@ -11,7 +11,7 @@
             <div class="card-head-right">
                 <div class="card-btn-follow">关注</div>
                 <i class="iconfont">
-                    <img src="@/assets/font/share.svg" alt="share.svg" style="height: 1.5rem;display: flex;">
+                    <img src="@/assets/font/share.svg" alt="share.svg" style="height: 1.5rem;">
                 </i>
             </div>
         </div>
@@ -99,13 +99,13 @@
             <div class="card-san-lia">
                 <div>
                     <i class="iconfont">
-                        <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1.49rem">
+                        <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1.5rem">
                     </i>
                     <p>{{ popPara.info.likeCount }}</p>
                 </div>
                 <div>
                     <i class="iconfont">
-                        <img src="@/assets/font/star.svg" alt="star.svg" style="height: 1.4rem">
+                        <img src="@/assets/font/star.svg" alt="star.svg" style="height: 1.35rem">
                     </i>
                     <p>88</p>
                 </div>

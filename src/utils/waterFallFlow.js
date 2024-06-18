@@ -26,15 +26,18 @@ const computeWaterFallFlow = (ref, columns = 2, exploreCards) => {
             let left = margin * (minColumn + 1) + cardWidth * minColumn;
             let top = min + margin;
             cards[i].style.transform = `translate(${left}px, ${top}px)`;
-            // topList[minColumn] += cards[i].clientHeight + margin;
+            topList[minColumn] += cards[i].clientHeight + margin;
 
-            let rate = exploreCards[i].imgH / exploreCards[i].imgW;
-            let cardHeight = rate * cardWidth;
-            // console.log(cardHeight, cards[i].clientHeight, cards[i].clientHeight - cardHeight)
-            topList[minColumn] += cardHeight + remToPx(4.3) + margin;
+            // let rate = exploreCards[i].imgH / exploreCards[i].imgW;
+            // let cardHeight = rate * cardWidth;
+            // topList[minColumn] += cardHeight + remToPx(4.3) + margin;
+
+            cards[i].src = exploreCards[i].imageUrl[0];
         }
 
         ref.style.height = Math.max(...topList) + margin + "px";
+
+
     };
 
     function remToPx(rem) {
