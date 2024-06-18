@@ -6,7 +6,7 @@ const computeWaterFallFlow = (ref, columns = 2, exploreCards) => {
         const cards = ref.children;
 
         const winWidth = window.innerWidth; // 当前视域宽度
-        const margin = Math.round(winWidth * 0.015); // 计算card之间的间距
+        const margin = Math.round(winWidth * 0.01); // 计算card之间的间距 0.015
         const cardWidth = Math.floor((winWidth - (columns + 1) * margin) / columns); // 计算卡片宽度
 
         const topList = new Array(columns).fill(0); // 记录每一个列的当前顶部距离

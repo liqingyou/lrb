@@ -122,7 +122,12 @@
         </div>
 
         <div class="card-bottom" v-show="inputShow">
-            <textarea rows="1" placeholder="说点什么..." style="width: 100%;height: 70%"></textarea>
+            <div class="text-area" style="width: 75%;height: 70%;">
+                <textarea rows="1" placeholder="说点什么..." style="width: 100%;height: 100%;border-radius: 5px;pad"></textarea>
+            </div>
+            <div class="text-button" style="width: 20%;height: 70%;">
+                <button style="width: 100%;height: 100%;border-radius: 5px;">发送</button>
+            </div>
         </div>
 
     </div>

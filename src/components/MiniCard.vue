@@ -144,10 +144,10 @@ img.fade-in {
 
         .card-source {
             width: 100%;
-            //min-height: 9rem;
-            //max-height: 16rem;
-            //object-fit: cover;
-            //object-position: center;
+            min-height: 9rem;
+            max-height: 17rem;
+            object-fit: cover;
+            object-position: center;
             // filter: blur(20px); /* 调整模糊度 */
         }
     }
