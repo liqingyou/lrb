@@ -30,7 +30,7 @@ export default defineConfig({
                 ]
             },
             workbox: {
-                swSrc: 'src/sw.js'
+                swDest: 'sw.js'
             }
         })
     ],
