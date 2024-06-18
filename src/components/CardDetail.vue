@@ -92,14 +92,13 @@
 
         </div>
 
-        <div class="card-bottom" ref="cardBottomRef">
-<!--            <div class="card-say-sth">-->
-<!--                <i class="iconfont">-->
-<!--                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">-->
-<!--                </i>-->
-<!--                <p>说点什么...</p>-->
-<!--            </div>-->
-            <textarea class="card-say-sth" placeholder="说点什么..."></textarea>
+        <div class="card-bottom" ref="cardBottomRef" v-show="!inputShow">
+            <div class="card-say-sth" @click="showInput">
+                <i class="iconfont">
+                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">
+                </i>
+                <p>说点什么...</p>
+            </div>
             <div class="card-san-lia">
                 <div>
                     <i class="iconfont">
@@ -120,8 +119,10 @@
                     <p>99</p>
                 </div>
             </div>
+        </div>
 
-
+        <div class="card-bottom" v-show="inputShow">
+            <textarea rows="1" placeholder="说点什么..." style="width: 100%;height: 70%"></textarea>
         </div>
 
     </div>
@@ -140,6 +141,7 @@ const swiperLock = ref(false);
 const cardContentRef = ref(null)
 const cardBottomRef = ref(null)
 const cardSwiperRef = ref(null)
+const inputShow = ref(false)
 
 let mySwiper = null
 const onSwiper = (swiper) => {
@@ -149,6 +151,11 @@ let initSlide = ref(0)
 let aIndex = ref(0)
 const onSlideChange = ({activeIndex}) => {
     aIndex.value = activeIndex
+}
+
+function showInput() {
+    console.log("ooo")
+    inputShow.value = true
 }
 
 onMounted(() => {
