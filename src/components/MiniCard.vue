@@ -6,10 +6,10 @@
                     <polygon class="card-tri" stroke-linejoin="round" points="0,0 0,200 170,100"></polygon>
                 </svg>
             </div>
-            <!--            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source hidden" @load="imageLoadOk" alt=""/>-->
-            <img ref="contentImg"
-                 :src="`https://via.placeholder.com/${(props.info.imgW/10).toFixed(0)}x${(props.info.imgH/10).toFixed(0)}&text= `"
-                 class="card-source hidden" @load="imageLoadOk" :alt="props.info.imageUrl[0]"/>
+            <img ref="contentImg" :src="props.info.imageUrl[0]" class="card-source hidden" @load="imageLoadOk" alt=""/>
+<!--            <img ref="contentImg"-->
+<!--                 :src="`https://via.placeholder.com/${(props.info.imgW/10).toFixed(0)}x${(props.info.imgH/10).toFixed(0)}&text= `"-->
+<!--                 class="card-source hidden" @load="imageLoadOk" :alt="props.info.imageUrl[0]"/>-->
         </div>
         <div class="card-title">
             {{ props.info.title ? props.info.title : '' }}
@@ -50,7 +50,7 @@ const loaded = ref(false)
 
 function imageLoadOk() {
     if (!loaded.value) {
-        contentImg.value.src = contentImg.value.alt
+        // contentImg.value.src = contentImg.value.alt
         contentImg.value.classList.remove('hidden')
         contentImg.value.classList.add('visible')
         setTimeout(function () {

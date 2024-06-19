@@ -42,6 +42,7 @@ import {onMounted, ref} from 'vue'
 import axios from "axios";
 import {CONFIG} from "@/utils/global.js";
 import router from "@/router/index.js";
+import {getOssUrl, ossUploadApi} from "@/utils/oss.js"
 
 const title = ref('')
 const content = ref('')
@@ -155,9 +156,28 @@ async function uploadFile(file) {
     if (fileType.startsWith('video/')) {
         extractVideoFrame(file);
     } else if (fileType.startsWith('image/')) {
-        let sign = await getSign(file)
-        await uploadByApi(file, sign, false)
-        loading.value = false;
+        // let sign = await getSign(file)
+        // await uploadByApi(file, sign, false)
+        // loading.value = false;
+
+        let url = await getOssUrl(file)
+        ossUploadApi(url, file, (progressEvent) => {
+            console.log(progressEvent)
+        }).then(async r => {
+            if (r.status === 200) {
+                const cleanUrl = url.split('?')[0];
+                let {width, height} = await loadImage(file);
+                imageUrlList.value.push({
+                    "title": "",
+                    "content": "",
+                    "url": cleanUrl,
+                    "width": width,
+                    "height": height
+                });
+            }
+            loading.value = false;
+        })
+
     } else {
         console.log('Unsupported file type');
         alert("不支持的格式")
@@ -192,15 +212,48 @@ function extractVideoFrame(file) {
 
         URL.revokeObjectURL(video.src);
 
-        let sign = await getSign(imageFile);
-        await uploadByApi(imageFile, sign, false)
-        console.log("封面上传完成")
+        // let sign = await getSign(imageFile);
+        // await uploadByApi(imageFile, sign, false)
+        // console.log("封面上传完成")
+        //
+        // let signVideo = await getSign(file);
+        // await uploadByApi(file, signVideo, true)
+        // console.log("视频上传完成")
 
-        let signVideo = await getSign(file);
-        await uploadByApi(file, signVideo, true)
-        console.log("视频上传完成")
+        let url = await getOssUrl(imageFile)
+        await ossUploadApi(url, imageFile, (progressEvent) => {
+            console.log("封面进度", progressEvent)
+        }).then(async res => {
+            if (res.status === 200) {
+                const cleanUrl = url.split('?')[0];
+                let {width, height} = await loadImage(imageFile);
+                imageUrlList.value.push({
+                    "title": "",
+                    "content": "",
+                    "url": cleanUrl,
+                    "width": width,
+                    "height": height
+                });
+            }
+        })
 
-        sendNotification()
+        let url2 = await getOssUrl(file)
+        await ossUploadApi(url2, file, (progressEvent) => {
+            console.log("视频进度", progressEvent)
+        }).then(res => {
+            if (res.status === 200) {
+                const cleanUrl = url2.split('?')[0];
+                videoUrlList.value.push({
+                    "title": "",
+                    "content": "",
+                    "url": cleanUrl,
+                    "width": 0,
+                    "height": 0
+                });
+            }
+        })
+
+        // sendNotification()
 
         loading.value = false;
 
@@ -325,6 +378,10 @@ async function uploadByApi(file, sign, isVideo) {
 }
 
 function push() {
+    let token = localStorage.getItem("adv_token");
+    if (null == token || "" === token) {
+        router.push({"path": "/login"})
+    }
     axios.post(`${CONFIG.base}/dy/source/save`, {
         "type": videoUrlList.value.length > 0 ? "v" : "i",
         "title": title.value,
@@ -333,7 +390,8 @@ function push() {
         "images": imageUrlList.value,
     }, {
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': token,
         }
     }).then(function (response) {
         if (response.data.code === 200) {
@@ -341,7 +399,7 @@ function push() {
         }
     }).catch(function (error) {
         console.error('Error uploading file:', error);
-        alert("发布错误")
+        alert("服务器错误")
     });
 }
 </script>

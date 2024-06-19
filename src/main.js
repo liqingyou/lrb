@@ -6,11 +6,14 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import router from './router'
 import {registerSW} from 'virtual:pwa-register'
+import {createPinia} from 'pinia'
 
 // Register the service worker for PWA
 registerSW({immediate: true})
 
-createApp(App).use(router).use(VueZoomContainer).mount('#app')
+const pinia = createPinia()
+
+createApp(App).use(pinia).use(router).use(VueZoomContainer).mount('#app')
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
