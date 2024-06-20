@@ -2,7 +2,8 @@
     <div class="home-container">
         <div class="home-swiper-head">
             <i class="iconfont">
-                <img src="@/assets/font/more.svg" alt="more.svg" style="height: 1.1rem;">
+<!--                <img src="@/assets/font/more.svg" alt="more.svg" style="height: 1.1rem;">-->
+                <Icon icon="icon-park-outline:align-text-left" />
             </i>
             <div class="swiper-name" ref="moduleRef">
                 <span v-for="(item, idx) in moduleList" @click="changeSwiper(idx)"
@@ -12,7 +13,8 @@
                 </div>
             </div>
             <i class="iconfont">
-                <img src="@/assets/font/search.svg" alt="search.svg" style="height: 1.1rem">
+<!--                <img src="@/assets/font/search.svg" alt="search.svg" style="height: 1.1rem">-->
+                <Icon icon="icon-park-outline:search" />
             </i>
         </div>
         <swiper @swiper="onSwiper" @slideChange="onSlideChange" @progress="onProgress" :initialSlide="moduleIdx"
@@ -35,6 +37,7 @@ import { ref, reactive, onMounted, nextTick } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import 'swiper/css'
 import Explore from './Explore.vue'
+import { Icon } from '@iconify/vue';
 
 const moduleList = reactive(['关注', '发现', '附近'])
 
@@ -140,7 +143,7 @@ onMounted(() => {
         }
 
         .iconfont:nth-child(1) {
-            color: rgb(248, 230, 28);
+            color: rgb(51, 51, 51);
         }
 
         .swiper-name {

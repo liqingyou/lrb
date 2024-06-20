@@ -3,7 +3,8 @@
         <div class="card-head">
             <div class="card-head-left">
                 <i class="iconfont" @click="goBack()">
-                    <img src="@/assets/font/back.svg" alt="back.svg" style="height: 1.5rem;">
+<!--                    <img src="@/assets/font/back.svg" alt="back.svg" style="height: 1.5rem;">-->
+                    <Icon icon="icon-park-outline:left" />
                 </i>
                 <img class="card-head-v" :src="popPara.info.avatar" alt="avatar"/>
                 <div class="card-name">{{ popPara.info.author }}</div>
@@ -11,7 +12,8 @@
             <div class="card-head-right">
                 <div class="card-btn-follow">关注</div>
                 <i class="iconfont">
-                    <img src="@/assets/font/share.svg" alt="share.svg" style="height: 1.5rem;">
+<!--                    <img src="@/assets/font/share.svg" alt="share.svg" style="height: 1.5rem;">-->
+                    <Icon icon="icon-park-outline:share" />
                 </i>
             </div>
         </div>
@@ -56,20 +58,23 @@
                         <p>留下你的想法吧</p>
                         <div class="card-center-input-i">
                             <i class="iconfont">
-                                <img src="@/assets/font/at.svg" alt="at.svg" style="height: 1rem">
+<!--                                <img src="@/assets/font/at.svg" alt="at.svg" style="height: 1rem">-->
+                                <Icon icon="icon-park-outline:at-sign" />
                             </i>
                             <i class="iconfont">
-                                <img src="@/assets/font/head.svg" alt="head.svg" style="height: 1rem">
+<!--                                <img src="@/assets/font/head.svg" alt="head.svg" style="height: 1rem">-->
+                                <Icon icon="icon-park-outline:slightly-smiling-face" />
                             </i>
                             <i class="iconfont">
-                                <img src="@/assets/font/picture.svg" alt="picture.svg" style="height: 1rem">
+<!--                                <img src="@/assets/font/picture.svg" alt="picture.svg" style="height: 1rem">-->
+                                <Icon icon="icon-park-outline:pic" />
                             </i>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-comments" v-for="i in 10">
-                    <img class="card-comments-head-1" :src="popPara.info.avatar"/>
+                    <img class="card-comments-head-1" :src="popPara.info.avatar" alt=""/>
                     <div>
                         <div class="card-comments-content">
                             <div class="card-comments-name">{{ popPara.info.author }}</div>
@@ -79,7 +84,8 @@
                         </div>
                         <div class="card-comments-like">
                             <i class="iconfont">
-                                <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1rem">
+<!--                                <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1rem">-->
+                                <Icon icon="icon-park-outline:like" />
                             </i>
                             <div>123</div>
                         </div>
@@ -95,26 +101,30 @@
         <div class="card-bottom" ref="cardBottomRef" v-show="!inputShow">
             <div class="card-say-sth" @click="showInput">
                 <i class="iconfont">
-                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">
+<!--                    <img src="@/assets/font/edit.svg" alt="edit.svg" style="height: 0.95rem">-->
+                    <Icon icon="icon-park-outline:write" />
                 </i>
                 <p>说点什么...</p>
             </div>
             <div class="card-san-lia">
                 <div>
                     <i class="iconfont">
-                        <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1.5rem">
+<!--                        <img src="@/assets/font/heart.svg" alt="heart.svg" style="height: 1.5rem">-->
+                        <Icon icon="icon-park-outline:like" />
                     </i>
                     <p>{{ popPara.info.likeCount }}</p>
                 </div>
                 <div>
                     <i class="iconfont">
-                        <img src="@/assets/font/star.svg" alt="star.svg" style="height: 1.35rem">
+<!--                        <img src="@/assets/font/star.svg" alt="star.svg" style="height: 1.35rem">-->
+                        <Icon icon="icon-park-outline:star" />
                     </i>
                     <p>88</p>
                 </div>
                 <div>
                     <i class="iconfont">
-                        <img src="@/assets/font/comment.svg" alt="comment.svg" style="height: 1.5rem">
+<!--                        <img src="@/assets/font/comment.svg" alt="comment.svg" style="height: 1.5rem">-->
+                        <Icon icon="icon-park-outline:comment" style="margin-top: 0.11rem"/>
                     </i>
                     <p>99</p>
                 </div>
@@ -123,7 +133,7 @@
 
         <div class="card-bottom" v-show="inputShow">
             <div class="text-area" style="width: 75%;height: 70%;">
-                <textarea rows="1" placeholder="说点什么..." style="width: 100%;height: 100%;border-radius: 5px;pad"></textarea>
+                <textarea rows="1" placeholder="说点什么..." style="width: 100%;height: 100%;border-radius: 5px;"></textarea>
             </div>
             <div class="text-button" style="width: 20%;height: 70%;">
                 <button style="width: 100%;height: 100%;border-radius: 5px;">发送</button>
@@ -138,6 +148,7 @@ import {onMounted, ref, toRefs} from 'vue'
 import {Swiper, SwiperSlide} from 'swiper/vue'
 import 'swiper/css'
 import useHooks from '../hooks/useHooks';
+import { Icon } from '@iconify/vue';
 
 const {popPara, isOpenDetail} = toRefs(useHooks.state)
 const emit = defineEmits(['goBack'])
@@ -235,8 +246,9 @@ defineExpose({
         @include flexlr;
 
         .iconfont {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: rgb(51, 51, 51);
+            @include flexcc;
         }
 
         .card-head-left {
@@ -508,14 +520,15 @@ defineExpose({
                 @include flexl;
 
                 i {
-                    font-size: 1.3rem;
+                    font-size: 1.5rem;
                     color: rgb(51, 51, 51);
                     font-weight: bold;
+                    @include flexcc;
                 }
 
                 p {
                     color: rgb(41, 41, 41);
-                    font-size: 0.8rem;
+                    font-size: 0.9rem;
                     margin: 0 0 0 0.3rem;
                 }
             }

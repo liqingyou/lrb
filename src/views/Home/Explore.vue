@@ -1,7 +1,9 @@
 <template>
     <LoadPanel @searchMore="searchMore">
         <div ref="refreshRef" class="refresh-div">
-            <i class="iconfont icon-loada"></i>
+            <i class="iconfont">
+                <Icon icon="icon-park-outline:loading" />
+            </i>
         </div>
         <div ref="exploreRef">
             <MiniCard v-for="(item, index) in exploreCards" :info="item" :key="item.id" @onImgLoaded="addImgCount">
@@ -19,6 +21,7 @@ import useHooks from '../../hooks/useHooks'
 import axios from 'axios'
 import {CONFIG} from "@/utils/global.js";
 import router from "@/router/index.js";
+import { Icon } from '@iconify/vue';
 
 const {isRefresh} = toRefs(useHooks.state)
 const {changeRefresh} = useHooks

@@ -6,10 +6,12 @@
 
                 <div class="card-head">
                     <i class="iconfont" @click="goBack()">
-                        <img src="@/assets/font/back-white.svg" alt="back.svg" style="height: 1.5rem">
+<!--                        <img src="@/assets/font/back-white.svg" alt="back.svg" style="height: 1.5rem">-->
+                        <Icon icon="icon-park-outline:left" />
                     </i>
                     <i class="iconfont">
-                        <img src="@/assets/font/share-white.svg" alt="share-white.svg" style="height: 1.5rem">
+<!--                        <img src="@/assets/font/share-white.svg" alt="share-white.svg" style="height: 1.5rem">-->
+                        <Icon icon="icon-park-outline:share" />
                     </i>
                 </div>
 
@@ -21,7 +23,8 @@
                         </VueZoomContainer>
                         <div class="video-controls" ref="playRef">
                             <i class="iconfont">
-                                <img src="@/assets/font/play.svg" alt="play.svg" style="height: 3.5rem">
+<!--                                <img src="@/assets/font/play.svg" alt="play.svg" style="height: 3.5rem">-->
+                                <Icon icon="icon-park-outline:play-one" style="height: 3.5rem"/>
                             </i>
                         </div>
                     </div>
@@ -42,7 +45,8 @@
                             </div>
                             <div class="video-info-icon">
                                 <i class="iconfont">
-                                    <img src="@/assets/font/kuo-white.svg" alt="kuo-white.svg" style="height: 0.9rem">
+<!--                                    <img src="@/assets/font/kuo-white.svg" alt="kuo-white.svg" style="height: 0.9rem">-->
+                                    <Icon icon="icon-park-outline:extend" />
                                 </i>
                             </div>
                         </div>
@@ -63,19 +67,22 @@
                     <div class="card-san-lia">
                         <div>
                             <i class="iconfont">
-                                <img src="@/assets/font/heart-white.svg" alt="heart.svg" style="height: 1.49rem">
+<!--                                <img src="@/assets/font/heart-white.svg" alt="heart.svg" style="height: 1.49rem">-->
+                                <Icon icon="icon-park-outline:like" />
                             </i>
                             <p>77</p>
                         </div>
                         <div>
                             <i class="iconfont">
-                                <img src="@/assets/font/star-white.svg" alt="star.svg" style="height: 1.4rem">
+<!--                                <img src="@/assets/font/star-white.svg" alt="star.svg" style="height: 1.4rem">-->
+                                <Icon icon="icon-park-outline:star" />
                             </i>
                             <p>88</p>
                         </div>
                         <div>
                             <i class="iconfont">
-                                <img src="@/assets/font/comment-white.svg" alt="comment.svg" style="height: 1.5rem">
+<!--                                <img src="@/assets/font/comment-white.svg" alt="comment.svg" style="height: 1.5rem">-->
+                                <Icon icon="icon-park-outline:comment" style="margin-top: 0.11rem"/>
                             </i>
                             <p>99</p>
                         </div>
@@ -92,6 +99,7 @@ import {onMounted, ref, toRefs, watch} from 'vue'
 import {Swiper, SwiperSlide} from 'swiper/vue'
 import 'swiper/css'
 import useHooks from '@/hooks/useHooks';
+import { Icon } from '@iconify/vue';
 
 const emit = defineEmits(['goBack'])
 const {popPara, isOpenDetail} = toRefs(useHooks.state)
@@ -233,8 +241,9 @@ function updateProgressBar(event) {
         @include flexlr;
 
         .iconfont {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: rgb(255, 255, 255);
+            @include flexcc;
         }
     }
 
@@ -406,6 +415,7 @@ function updateProgressBar(event) {
                     font-size: 1.3rem;
                     color: rgb(255, 255, 255);
                     font-weight: bold;
+                    @include flexcc;
                 }
 
                 p {
