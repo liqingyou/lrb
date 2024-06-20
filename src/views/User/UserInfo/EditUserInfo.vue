@@ -20,28 +20,28 @@
                 <div class="left">名字</div>
                 <div class="right">
                     <span>{{ isEmpty(store.userinfo.nickname) }}</span>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
             <div class="row" @click="nav('/me/edit-userinfo-item', { type: 2 })">
                 <div class="left">抖音号</div>
                 <div class="right">
                     <span>{{ isEmpty(_getUserDouyinId({ author: store.userinfo })) }}</span>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
             <div class="row" @click="nav('/me/edit-userinfo-item', { type: 3 })">
                 <div class="left">简介</div>
                 <div class="right">
                     <span>{{ isEmpty(store.userinfo.signature) }}</span>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
             <div class="row" @click="showSexDialog">
                 <div class="left">性别</div>
                 <div class="right">
                     <span>{{ sex }}</span>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
             <div class="row" @click="showBirthdayDialog">
@@ -49,7 +49,7 @@
                 <div class="right">
                     <span>{{ isEmpty(store.userinfo.user_age) }}</span>
                     <div v-show="false" id="trigger1"></div>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
             <div class="row" @click="nav('/me/choose-location')">
@@ -60,14 +60,14 @@
             <template v-if="store.userinfo.province && store.userinfo.city"> - </template>
             {{ store.userinfo.city }}
           </span>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
             <div class="row" @click="nav('/me/add-school')">
                 <div class="left">学校</div>
                 <div class="right">
                     <span>{{ isEmpty(store.userinfo.school?.name) }}</span>
-                    <dy-back scale=".8" direction="right"></dy-back>
+                    <Back scale=".8" direction="right"></Back>
                 </div>
             </div>
         </div>

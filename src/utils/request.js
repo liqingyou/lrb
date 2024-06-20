@@ -1,6 +1,7 @@
 import axios from 'axios';
 import config from '@/config';
 import {_notice} from './index';
+import router from "@/router/index.js";
 
 export const axiosInstance = axios.create({
     baseURL: config.baseUrl,
@@ -14,6 +15,13 @@ axiosInstance.interceptors.request.use(
         if (!config.headers['Content-Type']) {
             config.headers['Content-Type'] = 'application/json';
         }
+
+        let token = localStorage.getItem("adv_token");
+        if (null == token || "" === token) {
+            router.push({"path": "/login"})
+        }
+        config.headers['Authorization'] = token
+
         return config;
     },
     (error) => {

@@ -11,4 +11,32 @@
     --text: #1F2346;
     --white: #FFFFFF;
     --violet: #8e2de2;
+
+    --color-me: rgb(21, 23, 35);
+    --color-user: rgb(22, 24, 36);
+    --color-message: rgb(21, 21, 21);
+    --color-share-bg: rgb(38, 38, 38);
+    --home-header-height: 2.75rem;
+    --footer-height: 3.5rem;
+    --common-header-height: 3.125rem;
+    --indicator-height: 2.6875rem;
+    --page-padding: 0.9375rem;
+    --main-bg: rgb(21, 23, 36);
+    --active-main-bg: rgb(31, 37, 52);
+    --second-text-color: rgb(186, 186, 187);
+    --second-btn-color: rgb(58, 58, 70);
+    --second-btn-color-tran: rgba(58, 58, 70, 0.4);
+    --line-color: rgb(37, 45, 66);
+    --line-color2: rgb(56, 54, 67);
+    --footer-color: black;
+
+    --primary-btn-color: rgb(252, 47, 86);
+    --disable-primary-btn-color: rgba(252, 47, 86, 0.5);
+
+    --mask-dark: #000000bb;
+    --mask-light: transparent;
+    --mask-white: transparent;
+    --mask-lightgray: rgba(0, 0, 0, 0.25);
+    //消息页面
+    --msg-subpage-card-bg: rgb(28, 30, 43); //二级页面，卡片背景
 }

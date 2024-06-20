@@ -82,8 +82,10 @@ async function signupAction() {
                 }
             })
             if (result.data.success) {
-                let token = result.data.result
+                let token = result.data.result.token
                 localStorage.setItem('adv_token', token);
+                let people = result.data.result.people
+                localStorage.setItem('adv_people', people);
                 await router.push({"path": "/"})
             } else {
                 alert("请求错误")

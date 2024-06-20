@@ -1,5 +1,5 @@
 export default {
-    baseUrl: 'https://dy.ttentau.top/imgs/',
+    baseUrl: 'https://api.bameiapp.com',
     imgPath: '/imgs/',
     filePreview: 'http://192.168.0.103/static/uploads/'
 }

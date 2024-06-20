@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cream 数据</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            font-size: 18px;
+            color: #555555;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .data-item span {
+            font-size: 16px;
+            color: #666666;
+        }
+
+        @media (max-width: 600px) {
+            .data-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .data-item span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title"><span id="date"></span> Cream</div>
+
+    <div class="section">
+        <h2>总计</h2>
+        <div class="data-item">
+            <span>历史总用户数:</span>
+            <span id="total-users"></span>
+        </div>
+        <div class="data-item">
+            <span>历史总充值(TWD):</span>
+            <span id="total-recharge"></span>
+        </div>
+    </div>
+
+    <div class="section">
+
+    </div>
+
+    <div class="section">
+        <h2>当日用户</h2>
+        <div class="data-item">
+            <span>新增(男):</span>
+            <span id="new-users-male"></span>
+        </div>
+        <div class="data-item">
+            <span>新增(女):</span>
+            <span id="new-users-female"></span>
+        </div>
+        <div class="data-item">
+            <span>活跃(男):</span>
+            <span id="active-users-male"></span>
+        </div>
+        <div class="data-item">
+            <span>活跃(女):</span>
+            <span id="active-users-female"></span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>当日充值</h2>
+        <div class="data-item">
+            <span>总计(TWD):</span>
+            <span id="daily-recharge"></span>
+        </div>
+        <div class="data-item">
+            <span>安卓(TWD):</span>
+            <span id="recharge-android"></span>
+        </div>
+        <div class="data-item">
+            <span>苹果(TWD):</span>
+            <span id="recharge-apple"></span>
+        </div>
+        <div class="data-item">
+            <span>第三方(TWD):</span>
+            <span id="recharge-third"></span>
+        </div>
+        <div class="data-item">
+            <span>充值人数:</span>
+            <span id="recharge-users"></span>
+        </div>
+        <div class="data-item">
+            <span>充值笔数:</span>
+            <span id="recharge-transactions"></span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>当日提现</h2>
+        <div class="data-item">
+            <span>总金额(TWD):</span>
+            <span id="withdraw-amount"></span>
+        </div>
+        <div class="data-item">
+            <span>提现笔数:</span>
+            <span id="withdraw-transactions"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 定义要获取数据的URL
+    const apiUrl = 'https://m3test.2loveyou.com/spin/test/admin/cream/all';
+
+    // 创建一个新的XMLHttpRequest对象
+    const xhr = new XMLHttpRequest();
+
+    // 配置请求类型和URL
+    xhr.open('GET', apiUrl, true);
+
+    // 设置回调函数
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            // 解析JSON响应
+            const data = JSON.parse(xhr.responseText);
+
+            console.log(data)
+
+            // 填充数据到页面
+            document.getElementById('total-users').innerText = formatNumber(data.result.totalUsers);
+            document.getElementById('total-recharge').innerText = formatNumber(data.result.totalRecharge);
+
+            document.getElementById('new-users-male').innerText = data.result.newUsersMale;
+            document.getElementById('new-users-female').innerText = data.result.newUsersFemale;
+            document.getElementById('active-users-male').innerText = data.result.activeUsersMale;
+            document.getElementById('active-users-female').innerText = data.result.activeUsersFemale;
+
+            document.getElementById('daily-recharge').innerText = formatNumber(data.result.dailyRecharge);
+            document.getElementById('recharge-android').innerText = data.result.rechargeAndroid;
+            document.getElementById('recharge-apple').innerText = data.result.rechargeApple;
+            document.getElementById('recharge-third').innerText = formatNumber(data.result.rechargeThird);
+            document.getElementById('recharge-users').innerText = data.result.rechargeUsers;
+            document.getElementById('recharge-transactions').innerText = data.result.rechargeTrans;
+
+            document.getElementById('withdraw-amount').innerText = data.result.withdrawAmount;
+            document.getElementById('withdraw-transactions').innerText = data.result.withdrawTrans;
+
+            document.getElementById("date").innerText = data.result.date;
+            document.title = data.result.date + " Cream 数据"
+        }
+    };
+
+    // 发送请求
+    xhr.send();
+
+    function formatNumber(num) {
+        if (num >= 10000) {
+            const tenThousands = Math.floor(num / 10000); // Extract the ten thousand units
+            const remainder = num % 10000; // Extract the remainder
+            return `${tenThousands}万${remainder}`;
+        }
+        return num.toString(); // Return the number as a string if it's less than 10,000
+    }
+</script>
+
+</body>
+</html>

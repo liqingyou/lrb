@@ -24,7 +24,7 @@
                         <div class="video-controls" ref="playRef">
                             <i class="iconfont">
 <!--                                <img src="@/assets/font/play.svg" alt="play.svg" style="height: 3.5rem">-->
-                                <Icon icon="icon-park-outline:play-one" style="height: 3.5rem"/>
+                                <Icon icon="icon-park-outline:play-one" style="font-size: 6rem"/>
                             </i>
                         </div>
                     </div>
