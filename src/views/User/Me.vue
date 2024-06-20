@@ -1,5 +1,6 @@
 <template>
     <div class="Me">
+
         <SlideRowList name="baseSlide" style="width: 100%" v-model:active-index="baseActiveIndex">
             <SlideItem>
                 <div ref="float" class="float" :class="floatFixed ? 'fixed' : ''">
@@ -344,6 +345,7 @@
                 </div>
             </SlideItem>
         </SlideRowList>
+
         <transition name="fade">
             <div class="preview-img" v-if="previewImg" @click="previewImg = ''">
                 <img class="resource" :src="previewImg" alt=""/>
@@ -368,9 +370,11 @@
                 <img style="width: 100%" src="../../assets/img/icon/star-bg.png" alt=""/>
             </template>
         </ConfirmDialog>
+
     </div>
 </template>
 <script>
+import SlideItem from '@/components/slide/SlideItem.vue'
 import Posters from '@/components/Posters.vue'
 // import Indicator from '@/components/slide/Indicator.vue'
 import {nextTick} from 'vue'
@@ -386,7 +390,7 @@ import SlideRowList from '@/components/slide/SlideRowList.vue'
 
 export default {
     name: 'Me',
-    components: {SlideRowList, Posters, ConfirmDialog},
+    components: {SlideItem, SlideRowList, Posters, ConfirmDialog},
     data() {
         return {
             previewImg: '',
@@ -894,5 +898,5 @@ export default {
 </script>
 
 <style scoped lang="less">
-@import 'Me';
+@import 'Me.less';
 </style>

@@ -53,8 +53,8 @@ async function fetchContent() {
                     localStorage.removeItem("adv_explore_skip")
                 } else {
                     skip.value = parseInt(skip.value) + rLength + ""
-                    localStorage.setItem("adv_explore_skip", skip.value)
                 }
+                localStorage.setItem("adv_explore_skip", skip.value)
             } else {
                 if (result.data.code === 401) {
                     await router.push({"path": "/login"})
@@ -109,7 +109,7 @@ const searchMore = async (callback) => {
     // 简单写法
     // exploreCards.push(...res)
     imgLen = exploreCards.length
-    computeWaterFallFlow(exploreRef.value, 2, exploreCards)
+    // computeWaterFallFlow(exploreRef.value, 2, exploreCards)
     callback ? callback() : ''
 }
 
@@ -121,7 +121,7 @@ const exploreRefresh = async () => {
     refreshRef.value.style.transition = 'all 0.3s linear'
     imgCount = 0
     await initData()
-    computeWaterFallFlow(exploreRef.value, 2, exploreCards)
+    // computeWaterFallFlow(exploreRef.value, 2, exploreCards)
     // 关闭面饭
     refreshRef.value.style.height = '0px'
     setTimeout(() => {

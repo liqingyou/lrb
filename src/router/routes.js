@@ -15,9 +15,9 @@ const routes = [{
     name: '消息',
     component: () => import('../views/Message/index.vue')
 },{
-    path: '/user',
+    path: '/me',
     name: '我',
-    component: () => import('../views/User/index.vue')
+    component: () => import('../views/User/Me.vue')
 },]
 
 export default routes
