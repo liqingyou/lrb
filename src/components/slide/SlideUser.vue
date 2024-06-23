@@ -53,7 +53,7 @@ export default {
                     type: 'user',
                     id: '224e9a00-ffa0-4bc1-bb07-c318c7b02fa5',
                     avatar: new URL('../../assets/img/icon/avatar/1.png', import.meta.url).href,
-                    name: '何以为家',
+                    name: 'AI',
                     realName: '王小二',
                     sex: '',
                     age: 25,

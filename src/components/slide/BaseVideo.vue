@@ -78,7 +78,7 @@
 
 <script setup lang="ts">
 import { _checkImgUrl, _duration, _stopPropagation } from '@/utils'
-import Loading from '../Loading.vue'
+import Loading from '../LoadingMine.vue'
 import ItemToolbar from './ItemToolbar.vue'
 import ItemDesc from './ItemDesc.vue'
 import bus, { EVENT_KEY } from '../../utils/bus'

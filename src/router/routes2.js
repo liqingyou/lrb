@@ -10,6 +10,12 @@ const routes2 = [{
     path: '/me/edit-userinfo-item',
     name: '编辑资料',
     component: () => import('@/views/User/UserInfo/EditUserInfoItem.vue')
-}]
+}, {
+    path: '/message/chat',
+    component: () => import('@/pages/message/chat/Chat.vue')
+}, {
+    path: '/message/chat/detail',
+    component: () => import('@/pages/message/chat/ChatDetail.vue')
+},]
 
 export default routes2

@@ -11,8 +11,10 @@
         <div class="userinfo">
             <div class="change-avatar">
                 <div class="avatar-ctn" @click="showAvatarDialog">
-                    <img class="avatar" :src="_checkImgUrl(store.userinfo.cover_url[0].url_list[0])" alt="" />
-                    <img class="change" src="../../../assets/img/icon/me/camera-light.png" alt="" />
+                    <img class="avatar"
+                         src="https://d1wreqdqr6ieyc.cloudfront.net/upload%2F20240606%2F1798528699914731521-200x200.png"
+                         alt="头像"/>
+                    <img class="change" src="@/assets/img/icon/me/camera-light.png" alt=""/>
                 </div>
                 <span>点击更换头像</span>
             </div>
@@ -20,173 +22,85 @@
                 <div class="left">名字</div>
                 <div class="right">
                     <span>{{ isEmpty(store.userinfo.nickname) }}</span>
-                    <Back scale=".8" direction="right"></Back>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
-            <div class="row" @click="nav('/me/edit-userinfo-item', { type: 2 })">
+            <div class="row">
                 <div class="left">抖音号</div>
                 <div class="right">
-                    <span>{{ isEmpty(_getUserDouyinId({ author: store.userinfo })) }}</span>
-                    <Back scale=".8" direction="right"></Back>
+                    <span>123456</span>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
-            <div class="row" @click="nav('/me/edit-userinfo-item', { type: 3 })">
+            <div class="row">
                 <div class="left">简介</div>
                 <div class="right">
-                    <span>{{ isEmpty(store.userinfo.signature) }}</span>
-                    <Back scale=".8" direction="right"></Back>
+                    <span>我的简介</span>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
-            <div class="row" @click="showSexDialog">
+            <div class="row">
                 <div class="left">性别</div>
                 <div class="right">
-                    <span>{{ sex }}</span>
-                    <Back scale=".8" direction="right"></Back>
+                    <span>男</span>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
-            <div class="row" @click="showBirthdayDialog">
+            <div class="row">
                 <div class="left">生日</div>
                 <div class="right">
-                    <span>{{ isEmpty(store.userinfo.user_age) }}</span>
+                    <span>2023-05-05</span>
                     <div v-show="false" id="trigger1"></div>
-                    <Back scale=".8" direction="right"></Back>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
-            <div class="row" @click="nav('/me/choose-location')">
+            <div class="row">
                 <div class="left">所在地</div>
                 <div class="right">
-          <span v-if="store.userinfo.province || store.userinfo.city">
-            {{ store.userinfo.province }}
-            <template v-if="store.userinfo.province && store.userinfo.city"> - </template>
-            {{ store.userinfo.city }}
-          </span>
-                    <Back scale=".8" direction="right"></Back>
+                    <span>河北 - 秦皇岛</span>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
             <div class="row" @click="nav('/me/add-school')">
                 <div class="left">学校</div>
                 <div class="right">
-                    <span>{{ isEmpty(store.userinfo.school?.name) }}</span>
-                    <Back scale=".8" direction="right"></Back>
+                    <span>南开大学</span>
+                    <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
         </div>
-        <transition name="fade">
-            <div class="preview-img" v-if="data.previewImg" @click="data.previewImg = ''">
-                <img class="resource" :src="data.previewImg" alt="" />
-                <img
-                    class="download"
-                    src="../../../assets/img/icon/components/video/download.png"
-                    alt=""
-                    @click.stop="_no"
-                />
-            </div>
-        </transition>
     </div>
 </template>
 
-<script setup lang="ts">
-import MobileSelect from '@/components/mobile-select/mobile-select'
-import {
-    _checkImgUrl,
-    _getUserDouyinId,
-    _hideLoading,
-    _no,
-    _showLoading,
-    _showSelectDialog,
-    _sleep
-} from 'src/utils/dy'
-import { computed, reactive } from 'vue'
+<script setup>
+import {onMounted, ref, toRefs} from 'vue'
+import { useNav } from '@/hooks/useNav'
+import {useBaseStore} from "@/store/pinia.js";
 
-defineOptions({
-    name: 'EditUserInfo'
-})
 const store = useBaseStore()
 const nav = useNav()
-const data = reactive({
-    sexList: [
-        { id: 1, name: '男' },
-        { id: 2, name: '女' },
-        { id: 3, name: '不展示' }
-    ],
-    avatarList: [
-        { id: 1, name: '拍一张' },
-        { id: 2, name: '从相册选择' },
-        { id: 3, name: '查看大图' },
-        { id: 4, name: '取消' }
-    ],
-    previewImg: ''
-})
 
-const sex = computed(() => {
-    switch (Number(store.userinfo.gender)) {
-        case 1:
-            return '男'
-        case 2:
-            return '女'
-        default:
-            return ''
-    }
-})
+const userInfo = ref({})
+userInfo.value = {
+    "nick": "昵称"
+}
+
+function showAvatarDialog() {
+    console.log("showAvatarDialog")
+}
 
 function isEmpty(val) {
     if (val && val !== -1) return val
     return '点击设置'
 }
 
-function showSexDialog() {
-    _showSelectDialog(data.sexList, async (e) => {
-        _showLoading()
-        await _sleep(500)
-        store.setUserinfo({ ...store.userinfo, gender: e.id })
-        _hideLoading()
-    })
-}
-
-function showAvatarDialog() {
-    _showSelectDialog(data.avatarList, (e) => {
-        switch (e.id) {
-            case 1:
-            case 2:
-                return _no()
-            case 3:
-                data.previewImg = _checkImgUrl(store.userinfo.cover_url[0].url_list[0])
-                break
-        }
-    })
-}
-
-function showBirthdayDialog() {
-    new MobileSelect({
-        trigger: '#trigger1',
-        title: '生日',
-        connector: '生日',
-        wheels: [
-            {
-                data: Array.apply(null, { length: 100 }).map((v, i) => new Date().getFullYear() - i)
-            },
-            {
-                data: Array.apply(null, { length: 12 }).map((v, i) => 12 - i)
-            },
-            {
-                data: Array.apply(null, { length: 31 }).map((v, i) => 31 - i)
-            }
-        ],
-        callback: async (indexArr, data) => {
-            _showLoading()
-            await _sleep(500)
-            store.setUserinfo({
-                ...store.userinfo,
-                birthday: data.join('-')
-            })
-            _hideLoading()
-        }
-    }).show()
-}
+onMounted(() => {
+    // 获取用户信息
+})
 </script>
 
 <style scoped lang="less">
-@import '../../../assets/less/index';
+@import '@/assets/less/index';
 
 .edit {
     position: fixed;
@@ -195,7 +109,9 @@ function showBirthdayDialog() {
     bottom: 0;
     top: 0;
     overflow: auto;
-    font-size: 14rem;
+    font-size: 0.875rem;
+
+    background: var(--main-bg);
 }
 
 .title {
@@ -222,21 +138,21 @@ function showBirthdayDialog() {
 
     .resource {
         width: 100%;
-        max-height: 100%;
+        max-height: 90%;
     }
 
     .download {
         position: absolute;
-        bottom: 20rem;
-        right: 20rem;
-        padding: 3rem;
+        bottom: 1.25rem;
+        right: 1.25rem;
+        padding: 0.1875rem;
         background: var(--second-btn-color-tran);
-        width: 20rem;
+        width: 1.25rem;
     }
 }
 
 .userinfo {
-    padding-top: 60rem;
+    padding-top: 3.75rem;
     color: white;
 
     .change-avatar {
@@ -244,15 +160,15 @@ function showBirthdayDialog() {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        margin: 30rem 0;
-        @avatar-width: 80rem;
+        margin: 1.875rem 0;
+        @avatar-width: 5rem;
 
         .avatar-ctn {
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10rem;
+            margin-bottom: 0.625rem;
 
             width: @avatar-width;
             height: @avatar-width;
@@ -266,7 +182,7 @@ function showBirthdayDialog() {
             }
 
             .change {
-                width: 28rem;
+                width: 1.75rem;
                 z-index: 9;
                 position: relative;
             }
@@ -289,13 +205,13 @@ function showBirthdayDialog() {
     .content {
         background: white;
         width: 80%;
-        padding: 5rem 0;
+        padding: 0.3125rem 0;
         border-radius: 2px;
         box-sizing: border-box;
 
         .item {
-            font-size: 15rem;
-            padding: 15rem 20rem;
+            font-size: 0.9375rem;
+            padding: 0.9375rem 1.25rem;
             transition: all 0.2s;
 
             &:active {

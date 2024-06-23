@@ -2,7 +2,7 @@ import * as Vue from 'vue';
 import SelectDialog from '../components/dialog/SelectDialog.vue';
 import SimpleConfirmDialog from '../components/dialog/SimpleConfirmDialog.vue';
 import ConfirmDialog from '../components/dialog/ConfirmDialog.vue';
-import Loading from '../components/Loading.vue';
+import Loading from '../components/LoadingMine.vue';
 import { IMG_URL, IS_DEV, IS_GITEE_PAGES } from '@/config';
 import NoticeDialog from '../components/dialog/NoticeDialog.vue';
 // import { ArchiveReader, libarchiveWasm } from 'libarchive-wasm';

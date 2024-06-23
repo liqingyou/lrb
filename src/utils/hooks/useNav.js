@@ -9,7 +9,7 @@ export function useNav() {
             store.routeData = cloneDeep(data)
         }
         router.push({path, query}).then(r => {
-
+            console.log(r)
         });
     }
 }

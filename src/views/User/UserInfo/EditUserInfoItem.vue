@@ -113,7 +113,7 @@ async function save() {
         if (!data.localUserinfo.nickname) return _notice('名字不能为空')
     }
     _showLoading()
-    // store.setUserinfo(data.localUserinfo)
+    store.setUserinfo(data.localUserinfo)
     // await _sleep(500)
 
     await update({}, {

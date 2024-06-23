@@ -21,7 +21,7 @@
             <div class="row" @click="nav('/me/edit-userinfo-item', { type: 1 })">
                 <div class="left">名字</div>
                 <div class="right">
-                    <span>昵称</span>
+                    <span>{{ isEmpty(store.userinfo.nickname) }}</span>
                     <dy-back scale=".8" direction="right"></dy-back>
                 </div>
             </div>
@@ -74,8 +74,10 @@
 
 <script setup>
 import {onMounted, ref, toRefs} from 'vue'
-import { useNav } from '@/hooks/useNav'
+import { useNav } from '@/utils/hooks/useNav'
+import {useBaseStore} from "@/store/pinia.js";
 
+const store = useBaseStore()
 const nav = useNav()
 
 const userInfo = ref({})
@@ -85,6 +87,11 @@ userInfo.value = {
 
 function showAvatarDialog() {
     console.log("showAvatarDialog")
+}
+
+function isEmpty(val) {
+    if (val && val !== -1) return val
+    return '点击设置'
 }
 
 onMounted(() => {

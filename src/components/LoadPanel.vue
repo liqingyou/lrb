@@ -10,7 +10,7 @@
 <script setup>
 // https://at.alicdn.com/t/c/font_4225294_9ky89jh7qmt.css
 import { ref, onMounted } from 'vue'
-import Loading from '@/components/Loading.vue'
+import Loading from '@/components/LoadingMine.vue'
 const panelRef = ref(null)
 
 let isBottomLoading = ref(false)
