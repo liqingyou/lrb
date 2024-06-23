@@ -18,6 +18,7 @@ export const useBaseStore = defineStore('base', {
             routeData: null,
             users: [],
             userinfo: {
+                uid: "1801437297166729217",
                 nickname: '',
                 desc: '',
                 user_age: '',

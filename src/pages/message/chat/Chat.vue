@@ -193,7 +193,7 @@
 </template>
 <script setup lang="ts">
 import ChatMessage from '../components/ChatMessage.vue'
-import {computed, nextTick, onMounted, onUnmounted, reactive, ref} from 'vue'
+import {computed, nextTick, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
 import Loading from '@/components/Loading.vue'
 import {useBaseStore} from '@/store/pinia'
 import {_checkImgUrl, _no, _sleep} from '@/utils'
@@ -270,7 +270,7 @@ async function setListData() {
         "skip": 0,
         "size": 10
     }, {});
-    data.messages = res.data.result.list
+    data.messages = res.data.result.list.reverse()
 }
 
 async function sendMsg() {
@@ -287,6 +287,11 @@ async function sendMsg() {
     })
     data.messages.push(res2.data.result)
 }
+
+watch(() => route.query.key, (oldVal,newVal) => {
+    data.messages = []
+    setListData()
+})
 
 onMounted(async () => {
     msgWrapper.value

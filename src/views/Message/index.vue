@@ -442,7 +442,7 @@ import {_checkImgUrl, _sleep, cloneDeep} from '@/utils'
 import {useScroll} from '@/utils/hooks/useScroll'
 
 import {Icon} from '@iconify/vue';
-import {checkConv} from '@/api/conv'
+import {checkConv, getConvList} from '@/api/conv'
 
 defineOptions({
     name: 'Message'
@@ -483,13 +483,23 @@ async function createAi() {
     convList.push(res.data.result)
 }
 
-onMounted(() => {
+async function setConvList() {
+    let res = await getConvList({
+        "skip": 0,
+        "size": 10
+    },{})
+    convList.push(...res.data.result.list)
+}
+
+onMounted(async () => {
     console.log('create')
     data.recommend = cloneDeep(store.friends.all)
     data.recommend.map((v) => {
         v.type = -2
     })
     data.moreChat = cloneDeep(store.friends.all.slice(0, 3))
+
+    await setConvList()
 })
 
 const selectFriends = computed(() => {
