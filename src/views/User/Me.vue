@@ -12,11 +12,12 @@
             <div class="change-avatar">
                 <div class="avatar-ctn" @click="showAvatarDialog">
                     <img class="avatar"
-                         src="https://d1wreqdqr6ieyc.cloudfront.net/upload%2F20240606%2F1798528699914731521-200x200.png"
+                         :src="avatarUrl"
                          alt="头像"/>
                     <img class="change" src="@/assets/img/icon/me/camera-light.png" alt=""/>
                 </div>
                 <span>点击更换头像</span>
+                <input type="file" id="upload-input" multiple accept="*/*" ref="uploadInputRef" style="display: none">
             </div>
             <div class="row" @click="nav('/me/edit-userinfo-item', { type: 1 })">
                 <div class="left">名字</div>
@@ -74,8 +75,10 @@
 
 <script setup>
 import {onMounted, ref, toRefs} from 'vue'
-import { useNav } from '@/utils/hooks/useNav'
+import {useNav} from '@/utils/hooks/useNav'
 import {useBaseStore} from "@/store/pinia.js";
+import {getOssUrl, ossUploadApi} from "@/utils/oss.js";
+import {update} from '@/api/user'
 
 const store = useBaseStore()
 const nav = useNav()
@@ -85,8 +88,51 @@ userInfo.value = {
     "nick": "昵称"
 }
 
+let avatarUrl = ref(store.user.avatar)
+let uploadInputRef = ref(null)
+
 function showAvatarDialog() {
-    console.log("showAvatarDialog")
+    // 选中文件时
+    uploadInputRef.value.addEventListener('change', function (e) {
+        // console.log(e.target.files)
+        // 图片显示
+        uploadPicture(e.target.files)
+    })
+    uploadInputRef.value.click()
+}
+
+function uploadPicture(files) {
+    for (let index = 0; index < files.length; index++) {
+        uploadFile(files[index]);
+    }
+}
+
+async function uploadFile(file) {
+
+    let fileType = file.type;
+
+    if (fileType.startsWith('image/')) {
+
+        let url = await getOssUrl(file)
+        ossUploadApi(url, file, (progressEvent) => {
+            console.log(progressEvent)
+        }).then(async r => {
+            if (r.status === 200) {
+                avatarUrl.value = url.split('?')[0]
+                // 更新数据
+                let res = await update({}, {
+                    "avatar": avatarUrl.value
+                })
+                store.user.avatar = res.data.result.avatar
+                store.setUser(store.user)
+            }
+        })
+
+    } else {
+        console.log('Unsupported file type');
+        alert("不支持的格式")
+    }
+
 }
 
 function isEmpty(val) {

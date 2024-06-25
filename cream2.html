@@ -95,7 +95,6 @@
 </head>
 <body>
 <div class="container">
-
     <div class="title"><span id="date"></span> Cream</div>
 
     <div class="section">
@@ -108,6 +107,10 @@
             <span>历史总充值(TWD):</span>
             <span id="total-recharge"></span>
         </div>
+    </div>
+
+    <div class="section">
+
     </div>
 
     <div class="section">
@@ -169,9 +172,7 @@
             <span id="withdraw-transactions"></span>
         </div>
     </div>
-
 </div>
-
 
 <footer>
     <button class="switch-button" onclick="switchPage()">切换数字显示样式</button>
@@ -199,10 +200,10 @@
             document.getElementById('total-users').innerText = formatNumber(data.result.totalUsers);
             document.getElementById('total-recharge').innerText = formatNumber(data.result.totalRecharge);
 
-            document.getElementById('new-users-male').innerText = data.result.newUsersMale;
-            document.getElementById('new-users-female').innerText = data.result.newUsersFemale;
-            document.getElementById('active-users-male').innerText = data.result.activeUsersMale;
-            document.getElementById('active-users-female').innerText = data.result.activeUsersFemale;
+            document.getElementById('new-users-male').innerText = formatNumber(data.result.newUsersMale);
+            document.getElementById('new-users-female').innerText = formatNumber(data.result.newUsersFemale);
+            document.getElementById('active-users-male').innerText = formatNumber(data.result.activeUsersMale);
+            document.getElementById('active-users-female').innerText = formatNumber(data.result.activeUsersFemale);
 
             document.getElementById('daily-recharge').innerText = formatNumber(data.result.dailyRecharge);
             document.getElementById('recharge-android').innerText = formatNumber(data.result.rechargeAndroid);
@@ -212,7 +213,7 @@
             document.getElementById('recharge-transactions').innerText = formatNumber(data.result.rechargeTrans);
 
             document.getElementById('withdraw-amount').innerText = formatNumber(data.result.withdrawAmount);
-            document.getElementById('withdraw-transactions').innerText = data.result.withdrawTrans;
+            document.getElementById('withdraw-transactions').innerText = formatNumber(data.result.withdrawTrans);
 
             document.getElementById("date").innerText = data.result.date;
             document.title = data.result.date + " Cream 数据"
@@ -223,16 +224,11 @@
     xhr.send();
 
     function formatNumber(num) {
-        if (num >= 10000) {
-            const tenThousands = Math.floor(num / 10000); // Extract the ten thousand units
-            const remainder = num % 10000; // Extract the remainder
-            return `${tenThousands}万${remainder}`;
-        }
-        return num.toString(); // Return the number as a string if it's less than 10,000
+        return num.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 20});
     }
 
     function switchPage() {
-        window.location.href = 'cream2.html'; // 将another_page.html替换为目标页面的URL
+        window.location.href = 'cream.html'; // 将another_page.html替换为目标页面的URL
     }
 </script>
 

@@ -17,7 +17,9 @@ export const useBaseStore = defineStore('base', {
             loading: false,
             routeData: null,
             users: [],
+            user: {},
             userinfo: {
+                avatar: "https://d1wreqdqr6ieyc.cloudfront.net/upload%2F20240606%2F1798528699914731521-200x200.png",
                 uid: "1801437297166729217",
                 nickname: '',
                 desc: '',
@@ -72,6 +74,9 @@ export const useBaseStore = defineStore('base', {
         },
         setUserinfo(val) {
             this.userinfo = val
+        },
+        setUser(val) {
+            this.user = val
         },
         setMaskDialog(val) {
             this.maskDialog = val.state

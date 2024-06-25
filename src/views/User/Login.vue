@@ -52,11 +52,13 @@ import router from "@/router/index.js";
 import axios from "axios";
 import {CONFIG} from "@/utils/global.js";
 import useHooks from "@/hooks/useHooks.js";
+import { useBaseStore } from '@/store/pinia'
 
 const {changeRefresh} = useHooks
 
 let email = ref('')
 let password = ref('')
+let store = useBaseStore()
 
 async function loginAction() {
     console.log("signupAction", email.value, password.value)
@@ -75,12 +77,14 @@ async function loginAction() {
             localStorage.setItem('adv_token', token);
             let people = result.data.result.people
             localStorage.setItem('adv_people', people);
+            store.setUser(people)
             await router.push({"path": "/"})
             changeRefresh(true)
         } else {
             alert("请求错误")
         }
     } catch (error) {
+        console.log(error)
         alert("服务器错误,联系管理员")
     }
 }

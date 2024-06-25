@@ -5,7 +5,7 @@
                 <div class="left">
                     <dy-back @click="router.back"></dy-back>
                     <div class="badge">12</div>
-                    <span>zzzz</span>
+                    <span>{{ convNick }}</span>
                 </div>
                 <div class="right">
                     <img
@@ -194,13 +194,12 @@
 <script setup lang="ts">
 import ChatMessage from '../components/ChatMessage.vue'
 import {computed, nextTick, onMounted, onUnmounted, reactive, ref, watch} from 'vue'
-import Loading from '@/components/Loading.vue'
 import {useBaseStore} from '@/store/pinia'
 import {_checkImgUrl, _no, _sleep} from '@/utils'
 import {useRoute, useRouter} from 'vue-router'
 import {useNav} from '@/utils/hooks/useNav'
 import bus, {EVENT_KEY} from '@/utils/bus'
-import {getMsgList, addMsg, getAi} from '@/api/msg'
+import {addMsg, getAi, getMsgList} from '@/api/msg'
 
 let CALL_STATE = {
     REJECT: 0,
@@ -263,6 +262,7 @@ const data = reactive({
     tooltipTopLocation: ''
 })
 const inputValue = ref("")
+const convNick = ref(route.query.nick)
 
 async function setListData() {
     let res = await getMsgList({
@@ -271,24 +271,37 @@ async function setListData() {
         "size": 10
     }, {});
     data.messages = res.data.result.list.reverse()
+    scrollBottom()
 }
 
+// 发送消息
 async function sendMsg() {
     let res = await addMsg({}, {
         "convId": route.query.key,
-        "type" : MESSAGE_TYPE.TEXT,
-        "data" : inputValue.value,
+        "type": MESSAGE_TYPE.TEXT,
+        "data": inputValue.value,
     });
     data.messages.push(res.data.result)
-    let res2 = await getAi({},{
-        "convId": route.query.key,
-        "type" : MESSAGE_TYPE.TEXT,
-        "data" : inputValue.value,
+    scrollBottom()
+    data.messages.push({
+        type: MESSAGE_TYPE.TEXT,
+        data: "加载中,请耐心等待...",
+        user: {
+            id: "ai",
+            avatar: "https://d1wreqdqr6ieyc.cloudfront.net/bm/img/woman.jpg"
+        }
     })
-    data.messages.push(res2.data.result)
+    scrollBottom()
+    let res2 = await getAi({}, {
+        "convId": route.query.key,
+        "type": MESSAGE_TYPE.TEXT,
+        "data": inputValue.value,
+    })
+    data.messages[data.messages.length - 1] = res2.data.result
+    scrollBottom()
 }
 
-watch(() => route.query.key, (oldVal,newVal) => {
+watch(() => route.query.key, (oldVal, newVal) => {
     data.messages = []
     setListData()
 })
@@ -303,9 +316,11 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
-    msgWrapper.value
-        .querySelectorAll('img')
-        .forEach((item) => item.removeEventListener('load', scrollBottom))
+    if (msgWrapper) {
+        msgWrapper.value
+            .querySelectorAll('img')
+            .forEach((item) => item.removeEventListener('load', scrollBottom))
+    }
 })
 
 const isExpand = computed(() => {
@@ -468,6 +483,7 @@ function showTooltip(e) {
                     outline: none;
                     border: none;
                     background: @normal-bg-color;
+                    color: #FFFFFF;
                 }
 
                 .camera {

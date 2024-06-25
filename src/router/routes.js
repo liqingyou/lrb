@@ -5,7 +5,7 @@ const routes = [{
 },{
     path: '/video',
     name: '视频',
-    component: () => import('../views/Video/index.vue')
+    component: () => import('../views/game/els.vue')
 },{
     path: '/publish',
     name: '发布',

@@ -8,7 +8,7 @@
             {{ message.time }}
         </div>
         <template v-else>
-            <img v-if="!isMe" src="../../../assets/img/icon/avatar/3.png" alt="" class="avatar" />
+            <img v-if="!isMe" :src="message.user.avatar" alt="" class="avatar" />
             <div class="chat-wrapper" @click="$emit('itemClick', message)">
                 <div class="chat-text" v-if="message.type === MESSAGE_TYPE.TEXT">
                     {{ message.data }}
@@ -17,7 +17,7 @@
                 <div class="douyin_video" v-if="message.type === MESSAGE_TYPE.DOUYIN_VIDEO">
                     <img class="poster" :src="message.data.poster" alt="" />
                     <div class="title">{{ message.data.title }}</div>
-                    <img src="../../../assets/img/icon/play-white.png" class="pause" />
+                    <img src="../../../assets/img/icon/play-white.png" class="pause"  alt=""/>
                     <div class="author">
                         <img class="video-avatar" :src="message.data.author.avatar" alt="" />
                         <span class="name">{{ message.data.author.name }}</span>
@@ -99,7 +99,7 @@
                     />
                 </div>
             </div>
-            <img v-if="isMe" src="../../../assets/img/icon/avatar/2.png" alt="" class="avatar" />
+            <img v-if="isMe" :src="message.user.avatar" alt="" class="avatar" />
         </template>
     </div>
 </template>
@@ -417,6 +417,7 @@ export default {
         display: flex;
         align-items: center;
         font-size: 0.875rem;
+        white-space: pre-wrap;
     }
 
     .loves {

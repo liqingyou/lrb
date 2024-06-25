@@ -66,19 +66,19 @@
 
                     <!-- 消息 -->
                     <template v-for="conv in convList">
-                        <div class="message" @click="nav('/message/chat', {key:conv.convId})">
+                        <div class="message" @click="nav('/message/chat', {key:conv.convId,nick:conv.peoples[1].nick})">
                             <div class="avatar on-line">
-                                <img src="../../assets/img/icon/avatar/2.png" alt="" class="head-image"/>
+                                <img :src="conv.peoples[1].avatar" alt="" class="head-image"/>
                             </div>
                             <div class="content">
                                 <div class="left">
                                     <div class="name">
-                                        <span>{{ conv.to }}</span>
+                                        <span>{{ conv.peoples[1].nick }}</span>
                                     </div>
                                     <div class="detail">
-                                        {{ conv.ut }}
+                                        {{ null != conv.lastMsg ? conv.lastMsg.data : '...' }}
                                         <div class="point"></div>
-                                        {{ conv.ut }}
+                                        {{ _time(conv.ut) }}
                                     </div>
                                 </div>
                                 <div class="right">
@@ -92,137 +92,137 @@
                     </template>
 
                     <!--      抖音小助手-->
-                    <div class="message" @click="nav('/message/douyin-helper')">
-                        <div class="avatar">
-                            <img src="../../assets/img/icon/msg-icon5.webp" alt="" class="head-image"/>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <div class="name">
-                                    <span>抖音小助手</span>
-                                    <span class="tag">官方</span>
-                                </div>
-                                <div class="detail">
-                                    #今天谁请客呢
-                                    <div class="point"></div>
-                                    星期四
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="not-read"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--      系统通知-->
-                    <div class="message" @click="nav('/message/system-notice')">
-                        <div class="avatar">
-                            <img src="../../assets/img/icon/msg-icon4.png" alt="" class="head-image"/>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <div class="name">
-                                    <span>系统通知</span>
-                                    <span class="tag">官方</span>
-                                </div>
-                                <div class="detail">
-                                    协议修订通知
-                                    <div class="point"></div>
-                                    08-31
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="not-read"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--      求更新-->
-                    <div class="message" @click="nav('/me/request-update')">
-                        <div class="avatar">
-                            <img src="../../assets/img/icon/msg-icon7.webp" alt="" class="head-image"/>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <div class="name">
-                                    <span>求更新</span>
-                                    <span class="tag">官方</span>
-                                </div>
-                                <div class="detail">
-                                    你收到过1次求更新
-                                    <div class="point"></div>
-                                    10-09
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="not-read"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--      任务通知-->
-                    <div class="message" @click="nav('/message/task-notice')">
-                        <div class="avatar">
-                            <img src="../../assets/img/icon/msg-icon6.webp" alt="" class="head-image"/>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <div class="name">
-                                    <span>任务通知</span>
-                                    <span class="tag">官方</span>
-                                </div>
-                                <div class="detail">
-                                    发作品得流量
-                                    <div class="point"></div>
-                                    05-26
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="not-read"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--      直播通知-->
-                    <div class="message" @click="nav('/message/live-notice')">
-                        <div class="avatar">
-                            <img src="../../assets/img/icon/msg-icon8.webp" alt="" class="head-image"/>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <div class="name">
-                                    <span>直播通知</span>
-                                    <span class="tag">官方</span>
-                                </div>
-                                <div class="detail">
-                                    举报结果通知
-                                    <div class="point"></div>
-                                    05-26
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="not-read"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--      钱包通知-->
-                    <div class="message" @click="nav('/message/money-notice')">
-                        <div class="avatar">
-                            <img src="../../assets/img/icon/msg-icon9.webp" alt="" class="head-image"/>
-                        </div>
-                        <div class="content">
-                            <div class="left">
-                                <div class="name">
-                                    <span>钱包通知</span>
-                                    <span class="tag">官方</span>
-                                </div>
-                                <div class="detail">
-                                    卡券发放提醒
-                                    <div class="point"></div>
-                                    05-26
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="not-read"></div>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="message" @click="nav('/message/douyin-helper')">-->
+<!--                        <div class="avatar">-->
+<!--                            <img src="../../assets/img/icon/msg-icon5.webp" alt="" class="head-image"/>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                            <div class="left">-->
+<!--                                <div class="name">-->
+<!--                                    <span>抖音小助手</span>-->
+<!--                                    <span class="tag">官方</span>-->
+<!--                                </div>-->
+<!--                                <div class="detail">-->
+<!--                                    #今天谁请客呢-->
+<!--                                    <div class="point"></div>-->
+<!--                                    星期四-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="right">-->
+<!--                                <div class="not-read"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;      系统通知&ndash;&gt;-->
+<!--                    <div class="message" @click="nav('/message/system-notice')">-->
+<!--                        <div class="avatar">-->
+<!--                            <img src="../../assets/img/icon/msg-icon4.png" alt="" class="head-image"/>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                            <div class="left">-->
+<!--                                <div class="name">-->
+<!--                                    <span>系统通知</span>-->
+<!--                                    <span class="tag">官方</span>-->
+<!--                                </div>-->
+<!--                                <div class="detail">-->
+<!--                                    协议修订通知-->
+<!--                                    <div class="point"></div>-->
+<!--                                    08-31-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="right">-->
+<!--                                <div class="not-read"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;      求更新&ndash;&gt;-->
+<!--                    <div class="message" @click="nav('/me/request-update')">-->
+<!--                        <div class="avatar">-->
+<!--                            <img src="../../assets/img/icon/msg-icon7.webp" alt="" class="head-image"/>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                            <div class="left">-->
+<!--                                <div class="name">-->
+<!--                                    <span>求更新</span>-->
+<!--                                    <span class="tag">官方</span>-->
+<!--                                </div>-->
+<!--                                <div class="detail">-->
+<!--                                    你收到过1次求更新-->
+<!--                                    <div class="point"></div>-->
+<!--                                    10-09-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="right">-->
+<!--                                <div class="not-read"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;      任务通知&ndash;&gt;-->
+<!--                    <div class="message" @click="nav('/message/task-notice')">-->
+<!--                        <div class="avatar">-->
+<!--                            <img src="../../assets/img/icon/msg-icon6.webp" alt="" class="head-image"/>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                            <div class="left">-->
+<!--                                <div class="name">-->
+<!--                                    <span>任务通知</span>-->
+<!--                                    <span class="tag">官方</span>-->
+<!--                                </div>-->
+<!--                                <div class="detail">-->
+<!--                                    发作品得流量-->
+<!--                                    <div class="point"></div>-->
+<!--                                    05-26-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="right">-->
+<!--                                <div class="not-read"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;      直播通知&ndash;&gt;-->
+<!--                    <div class="message" @click="nav('/message/live-notice')">-->
+<!--                        <div class="avatar">-->
+<!--                            <img src="../../assets/img/icon/msg-icon8.webp" alt="" class="head-image"/>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                            <div class="left">-->
+<!--                                <div class="name">-->
+<!--                                    <span>直播通知</span>-->
+<!--                                    <span class="tag">官方</span>-->
+<!--                                </div>-->
+<!--                                <div class="detail">-->
+<!--                                    举报结果通知-->
+<!--                                    <div class="point"></div>-->
+<!--                                    05-26-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="right">-->
+<!--                                <div class="not-read"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash;      钱包通知&ndash;&gt;-->
+<!--                    <div class="message" @click="nav('/message/money-notice')">-->
+<!--                        <div class="avatar">-->
+<!--                            <img src="../../assets/img/icon/msg-icon9.webp" alt="" class="head-image"/>-->
+<!--                        </div>-->
+<!--                        <div class="content">-->
+<!--                            <div class="left">-->
+<!--                                <div class="name">-->
+<!--                                    <span>钱包通知</span>-->
+<!--                                    <span class="tag">官方</span>-->
+<!--                                </div>-->
+<!--                                <div class="detail">-->
+<!--                                    卡券发放提醒-->
+<!--                                    <div class="point"></div>-->
+<!--                                    05-26-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="right">-->
+<!--                                <div class="not-read"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                     <NoMore/>
 
@@ -438,7 +438,7 @@ import {useBaseStore} from '@/store/pinia'
 
 import {computed, onMounted, reactive, watch} from 'vue'
 import {useNav} from '@/utils/hooks/useNav.js'
-import {_checkImgUrl, _sleep, cloneDeep} from '@/utils'
+import {_checkImgUrl, _sleep, _time, cloneDeep} from '@/utils'
 import {useScroll} from '@/utils/hooks/useScroll'
 
 import {Icon} from '@iconify/vue';
@@ -466,19 +466,34 @@ const data = reactive({
     moreChat: []
 })
 
-const convList = reactive([
-    {
-        convId: "c1",
-        from: "123",
-        to: "456",
-        ct: 12321,
-        ut: 13123
-    }
-])
+// const convList = reactive([
+//     {
+//         convId: "c1",
+//         ct: 12321,
+//         ut: 13123,
+//         lastMsg: {
+//             data: '...',
+//         },
+//         peoples: [
+//             {
+//                 nick: "AI",
+//                 avatar: "https://d1wreqdqr6ieyc.cloudfront.net/bm/img/woman.jpg",
+//                 pid: ""
+//             },
+//             {
+//                 nick: "AI",
+//                 avatar: "https://d1wreqdqr6ieyc.cloudfront.net/bm/img/woman.jpg",
+//                 pid: ""
+//             }
+//         ]
+//     }
+// ])
 
-async function createAi() {
-    let res = await checkConv({},{
-        "to" : "ai"
+const convList = reactive([])
+
+    async function createAi() {
+    let res = await checkConv({}, {
+        "to": "ai"
     })
     convList.push(res.data.result)
 }
@@ -487,7 +502,7 @@ async function setConvList() {
     let res = await getConvList({
         "skip": 0,
         "size": 10
-    },{})
+    }, {})
     convList.push(...res.data.result.list)
 }
 
