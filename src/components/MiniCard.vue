@@ -53,7 +53,7 @@ const loaded = ref(false)
 
 function imageLoadOk() {
     if (!loaded.value) {
-        contentImg.value.src = contentImg.value.alt
+        // contentImg.value.src = contentImg.value.alt
         contentImg.value.classList.remove('hidden')
         contentImg.value.classList.add('visible')
         setTimeout(function () {

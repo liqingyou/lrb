@@ -52,7 +52,7 @@ async function fetchContent() {
       if (result.data.code === 200) {
         resList.value = result.data.result.list
         for (const item of resList.value) {
-          item.imgPH = await generatePlaceholder(item.imgW, item.imgH)
+          item.imgPH = await generatePlaceholder(item.imgW / 10, item.imgH / 10)
         }
 
         let rLength = result.data.result.list.length
@@ -90,6 +90,7 @@ function generatePlaceholder(width, height) {
 
   return new Promise((resolve, reject) => {
     nextTick(() => {
+
       const context = placeholder.value.getContext('2d');
       // 生成占位图的逻辑，这里简化为填充背景和写入文字
       context.fillStyle = '#cccccc';
@@ -97,9 +98,11 @@ function generatePlaceholder(width, height) {
       context.fillStyle = '#000000';
       context.textAlign = 'center';
       context.textBaseline = 'middle';
-      context.font = width / 10 + 'px Arial';
+
       // const text = `${width}x${height}`;
-      // context.fillText(text, width / 2, height / 2);
+      const text = `加载中`;
+      context.font = width / 10 + 'px Arial';
+      context.fillText(text, width / 2, height / 2);
 
       // 将Canvas转换为图片URL
       const dataURL = placeholder.value.toDataURL();
@@ -107,6 +110,22 @@ function generatePlaceholder(width, height) {
     });
   });
 
+}
+
+function calculateFontSizeToFit(text, width, height) {
+  let fontSize = 40; // 初始字体大小
+  const maxWidth = width * 0.8; // 文本最大宽度为画布宽度的80%
+  const maxHeight = height * 0.8; // 文本最大高度为画布高度的80%
+
+  do {
+    const textWidth = context.measureText(text).width;
+    if (textWidth < maxWidth && fontSize < maxHeight) {
+      break;
+    }
+    fontSize--;
+  } while (fontSize > 0);
+
+  return fontSize;
 }
 
 const initData = async () => {
