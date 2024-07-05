@@ -149,7 +149,7 @@ const exploreRef = ref(null)
 let imgCount = 0
 const addImgCount = () => {
   imgCount++
-  if (imgCount >= imgLen) {
+  if (imgCount === imgLen) {
     // 开始计算瀑布流
     computeWaterFallFlow(exploreRef.value, 2, exploreCards)
   }
