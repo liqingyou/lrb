@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@icon-park/vue-next": "^1.4.2",
+    "@lucky-canvas/vue": "^0.1.11",
     "axios": "^1.7.2",
     "matrix-bot-sdk": "^0.7.1",
     "pinia": "^2.1.7",

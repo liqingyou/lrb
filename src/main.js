@@ -8,13 +8,15 @@ import router from './router'
 import {registerSW} from 'virtual:pwa-register'
 import {createPinia} from 'pinia'
 import mixin from './utils/mixin'
+// 完整加载
+import VueLuckyCanvas from '@lucky-canvas/vue'
 
 // Register the service worker for PWA
 registerSW({immediate: true})
 
 const pinia = createPinia()
 
-createApp(App).mixin(mixin).use(pinia).use(router).use(VueZoomContainer).mount('#app')
+createApp(App).use(VueLuckyCanvas).mixin(mixin).use(pinia).use(router).use(VueZoomContainer).mount('#app')
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
